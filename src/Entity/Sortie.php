@@ -24,7 +24,7 @@ class Sortie
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_creation = null;
+    private ?\DateTimeInterface $date_enregistrement = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_ouverture_inscription = null;
@@ -82,14 +82,14 @@ class Sortie
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateEnregistrement(): ?\DateTimeInterface
     {
-        return $this->date_creation;
+        return $this->date_enregistrement;
     }
 
-    public function setDateCreation(\DateTimeInterface $date_creation): self
+    public function setDateEnregistrement(\DateTimeInterface $date_enregistrement): self
     {
-        $this->date_creation = $date_creation;
+        $this->date_enregistrement = $date_enregistrement;
 
         return $this;
     }
@@ -153,5 +153,5 @@ class Sortie
 
         return $this;
     }
-    
+
 }
