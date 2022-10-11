@@ -41,9 +41,6 @@ class Sortie
     #[ORM\Column]
     private ?bool $isAnnulee = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_inscription = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -156,16 +153,5 @@ class Sortie
 
         return $this;
     }
-
-    public function getDateInscription(): ?\DateTimeInterface
-    {
-        return $this->date_inscription;
-    }
-
-    public function setDateInscription(\DateTimeInterface $date_inscription): self
-    {
-        $this->date_inscription = $date_inscription;
-
-        return $this;
-    }
+    
 }
