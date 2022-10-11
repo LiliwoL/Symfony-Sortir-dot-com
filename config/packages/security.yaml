@@ -30,10 +30,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-    #     - { path: ^/admin, roles: ROLE_ADMIN }
-    #     - { path: ^/, roles: ROLE_USER }
-    #role_hierarchy:
-    #    ROLE_ADMIN: ROLE_USER
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         #- { path: ^/*, roles: ROLE_USER } // TODO faire le regex pour toutes les pasges sauf la pages racine
+         - { path: ^/, roles: PUBLIC_ACCESS }
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
 
 when@test:
     security:
