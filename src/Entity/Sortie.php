@@ -32,14 +32,14 @@ class Sortie
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_fermeture_inscription = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_debut = null;
-
-    #[ORM\Column]
-    private ?int $duree = null;
-
     #[ORM\Column]
     private ?bool $isAnnulee = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date_debut_sortie = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date_fin_sortie = null;
 
     public function getId(): ?int
     {
@@ -118,30 +118,6 @@ class Sortie
         return $this;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
-    {
-        return $this->date_debut;
-    }
-
-    public function setDateDebut(\DateTimeInterface $date_debut): self
-    {
-        $this->date_debut = $date_debut;
-
-        return $this;
-    }
-
-    public function getDuree(): ?int
-    {
-        return $this->duree;
-    }
-
-    public function setDuree(int $duree): self
-    {
-        $this->duree = $duree;
-
-        return $this;
-    }
-
     public function isIsAnnulee(): ?bool
     {
         return $this->isAnnulee;
@@ -150,6 +126,30 @@ class Sortie
     public function setIsAnnulee(bool $isAnnulee): self
     {
         $this->isAnnulee = $isAnnulee;
+
+        return $this;
+    }
+
+    public function getDateDebutSortie(): ?\DateTimeInterface
+    {
+        return $this->date_debut_sortie;
+    }
+
+    public function setDateDebutSortie(\DateTimeInterface $date_debut_sortie): self
+    {
+        $this->date_debut_sortie = $date_debut_sortie;
+
+        return $this;
+    }
+
+    public function getDateFinSortie(): ?\DateTimeInterface
+    {
+        return $this->date_fin_sortie;
+    }
+
+    public function setDateFinSortie(\DateTimeInterface $date_fin_sortie): self
+    {
+        $this->date_fin_sortie = $date_fin_sortie;
 
         return $this;
     }
