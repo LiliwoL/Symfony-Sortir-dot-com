@@ -24,16 +24,11 @@
            value="{{ csrf_token('authenticate') }}"
     >
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Se souvenir de moi
-            </label>
-        </div>
-    #}
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="_remember_me"> Rester connecté après avoir quitté le site
+        </label>
+    </div>
 
     <a href="{{ path('app_forgot_password_request') }}">Réinitialiser son mot de passe</a>
 
