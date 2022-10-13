@@ -34,7 +34,14 @@
         /*************************************************************
           SECTIONS
         **************************************************************/
-        section {
+        section:nth-child(odd) {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            transform-style: inherit;
+        }
+
+        section:nth-child(even) {
             position: relative;
             min-height: 100vh;
             width: 100%;
@@ -42,7 +49,9 @@
         }
 
         .section1,
-        .section3 {
+        .section3,
+        .section5,
+        .section7 {
             background: #fafafa;
             box-shadow: 0 0 20px #333;
             z-index: 1;
@@ -50,7 +59,9 @@
 
         .section0::before,
         .section2::before,
-        .section4::before {
+        .section4::before,
+        .section6::before,
+        .section8::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -61,7 +72,7 @@
         }
 
         .section0::before {
-            background: url({{ asset('/assets/images/accueilBG0.jpg') }}) top center;
+            background: #011f39 top center;
         }
 
         .section2::before {
@@ -72,31 +83,55 @@
             background: url({{ asset('/assets/images/accueilBG4.jpg') }}) top center;
         }
 
+        .section6::before {
+            background: url({{ asset('/assets/images/accueilBG4.jpg') }}) top center;
+        }
+
+        .section8::before {
+            background: url({{ asset('/assets/images/accueilBG8.jpg') }}) top center;
+        }
+
         /*************************************************************
-          HEADINGS
+          CONTENT
         **************************************************************/
-        h1 {
-            font-size: 4rem;
+        .content {
             text-align: center;
             position: absolute;
             padding: 1rem;
-            background: #fafafa;
             box-shadow: 0 0 20px #333;
             top: 50%;
             left: 50%;
             transform: translateZ(-1px) scale(2) translate(-25%, -25%);
         }
 
-        .section1 h1,
-        .section3 h1{
+        .section1 .content h2,
+        .section3 .content h2,
+        .section5 .content h2,
+        .section7 .content h2 {
+            font-size: 8rem;
+            color: #011f39;
+        }
+
+        .section0 .content h2,
+        .section2 .content h2,
+        .section4 .content h2,
+        .section6 .content h2,
+        .section8 .content h2 {
+            font-size: 8rem;
+            color: white;
+        }
+
+        .content div {
+            font-size: 2em;
+        }
+
+        body:nth-child(even) .content {
             z-index: 3;
             transform: translate(-50%, -50%);
             box-shadow: none;
         }
 
-        .section0 h1,
-        .section2 h1,
-        .section4 h1{
+        body:nth-child(odd) .content {
             transform: translateZ(-.3px) scale(1.3) translate(-39%, -39%);
             z-index: 3;
         }
@@ -131,19 +166,58 @@
 </head>
 <body>
     <section class="section0">
-        <h1>CSS-Only Parallax Effect</h1>
+        <div class="content">
+            <h2>SORTIRDOTCOM</h2>
+            <div>LE réseau social des l'ENI</div>
+        </div>
     </section>
     <section class="section1">
-        <h1>Section w/o parallax effect</h1>
+        <div class="content">
+            <h2>/login</h2>
+        </div>
     </section>
     <section class="section2">
-        <h1>Section w/ parallax effect</h1>
+        <div class="content">
+
+        </div>
     </section>
     <section class="section3">
-        <h1>Section w/o parallax effect</h1>
+        <div class="content">
+            <h2>ENI</h2>
+            <div>ENI Groupe, expert de la formation en informatique depuis plus de 40 ans.</div>
+            <div>Venez visitez le site web de l'école <a href="https://www.eni-ecole.fr/">eni-ecole.fr</a></div>
+        </div>
     </section>
     <section class="section4">
-        <h1>Section w/o parallax effect</h1>
+        <div class="content">
+
+        </div>
+    </section>
+    <section class="section5">
+        <div class="content">
+            <h2>Blog des développeurs</h2>
+            <div>Ce site vous est proposé par une équipe à la fois nationale et internationale.</div>
+            <div>Venez visitez notre <a href="#">blog</a>.</div>
+        </div>
+    </section>
+    <section class="section6">
+        <div class="content">
+
+        </div>
+    </section>
+    <section class="section7">
+        <div class="content">
+            <div>
+                <hr>
+                Site de réseau social produit le groupe Alexandre-Luc-Manel<br>
+                Projet de groupe durant la formation à l'ENI 2022-23
+            </div>
+        </div>
+    </section>
+    <section class="section8">
+        <div class="content">
+
+        </div>
     </section>
 </body>
 </html>

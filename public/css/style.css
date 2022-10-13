@@ -192,6 +192,9 @@ a:hover{
     outline: none;
 }
 
+.content a:hover {
+    color: white;
+}
 
 .full {
     float: left;
