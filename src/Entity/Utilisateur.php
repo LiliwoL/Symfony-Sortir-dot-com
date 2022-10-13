@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -18,6 +21,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Length(
+        min : 2,
+        max : 180,
+        minMessage : "Votre saisie doit être de {{limit}} caractères minimum",
+        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
     private ?string $username = null;
 
     #[ORM\Column]
@@ -30,28 +38,59 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Email(
+        message : "L'adresse email saisie  {{value}} n'est pas valide" )]
     private ?string $courriel = null;
 
     #[ORM\Column]
     private ?bool $isVerified = false;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length(
+        max : 50,
+        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length(
+        max : 50,
+        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 20, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/\d{10}$',
+        match: false,
+        message: 'Votre saisie n`est pas valide',
+    )]
     private ?string $telephone = null;
 
     #[ORM\Column]
     private ?bool $isActif = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\Length(
+        max : 100,
+        maxMessage : "Le nom de fichier ne doit pas dépasser {{limit}} caractères" )]
     private ?string $nomPhoto = null;
 
     #[ORM\Column]
     private ?bool $isCguAccepte = null;
+
+    #[ORM\ManyToOne(inversedBy: 'utilisateurs')]
+    private ?Site $site = null;
+
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Inscription::class)]
+    private Collection $inscription;
+
+    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
+    private Collection $sortie;
+
+    public function __construct()
+    {
+        $this->inscription = new ArrayCollection();
+        $this->sortie = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -203,6 +242,78 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNomPhoto(?string $nomPhoto): self
     {
         $this->nomPhoto = $nomPhoto;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscription(): Collection
+    {
+        return $this->inscription;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscription->contains($inscription)) {
+            $this->inscription->add($inscription);
+            $inscription->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscription->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getUtilisateur() === $this) {
+                $inscription->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortie(): Collection
+    {
+        return $this->sortie;
+    }
+
+    public function addSortie(Sortie $sortie): self
+    {
+        if (!$this->sortie->contains($sortie)) {
+            $this->sortie->add($sortie);
+            $sortie->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortie(Sortie $sortie): self
+    {
+        if ($this->sortie->removeElement($sortie)) {
+            // set the owning side to null (unless already changed)
+            if ($sortie->getOrganisateur() === $this) {
+                $sortie->setOrganisateur(null);
+            }
+        }
 
         return $this;
     }

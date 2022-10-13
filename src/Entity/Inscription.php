@@ -20,6 +20,12 @@ class Inscription
     #[ORM\Column]
     private ?bool $isParticipant = null;
 
+    #[ORM\ManyToOne(inversedBy: 'inscription')]
+    private ?Utilisateur $utilisateur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sortie')]
+    private ?Sortie $sortie = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +51,30 @@ class Inscription
     public function setIsParticipant(bool $isParticipant): self
     {
         $this->isParticipant = $isParticipant;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getSortie(): ?Sortie
+    {
+        return $this->sortie;
+    }
+
+    public function setSortie(?Sortie $sortie): self
+    {
+        $this->sortie = $sortie;
 
         return $this;
     }

@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -14,32 +17,68 @@ class Sortie
     #[ORM\Column]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 50)]
+    #[Assert\Length(
+        min : 10,
+        max : 50,
+        minMessage : "Un effort dans votre, vous devez ajoutez au moins {{ limit }} caractères ",
+        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
     private ?string $nom = null;
 
     #[ORM\Column]
     private ?int $nbInscriptionMax = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min : 10,
+        max : 255,
+        minMessage : "Un effort dans la saisie, vous devez ajoutez au moins {{ limit }} caractères ",
+        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\DateTime( format : 'Y-m-d H:i')]
     private ?\DateTimeInterface $date_enregistrement = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\DateTime( format : 'Y-m-d H:i')]
     private ?\DateTimeInterface $date_ouverture_inscription = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\DateTime( format : 'Y-m-d H:i')]
     private ?\DateTimeInterface $date_fermeture_inscription = null;
 
     #[ORM\Column]
     private ?bool $isAnnulee = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\DateTime( format : 'Y-m-d H:i')]
     private ?\DateTimeInterface $date_debut_sortie = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\DateTime( format : 'Y-m-d H:i')]
     private ?\DateTimeInterface $date_fin_sortie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sortie')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateur $organisateur = null;
+
+    #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class)]
+    private Collection $sortie;
+
+    #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: PhotoSortie::class)]
+    private Collection $photoSortie;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Lieu $adresse = null;
+
+    public function __construct()
+    {
+        $this->sortie = new ArrayCollection();
+        $this->photoSortie = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,6 +165,90 @@ class Sortie
     public function setIsAnnulee(bool $isAnnulee): self
     {
         $this->isAnnulee = $isAnnulee;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?Utilisateur
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?Utilisateur $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getSortie(): Collection
+    {
+        return $this->sortie;
+    }
+
+    public function addSortie(Inscription $sortie): self
+    {
+        if (!$this->sortie->contains($sortie)) {
+            $this->sortie->add($sortie);
+            $sortie->setSortie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortie(Inscription $sortie): self
+    {
+        if ($this->sortie->removeElement($sortie)) {
+            // set the owning side to null (unless already changed)
+            if ($sortie->getSortie() === $this) {
+                $sortie->setSortie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PhotoSortie>
+     */
+    public function getPhotoSortie(): Collection
+    {
+        return $this->photoSortie;
+    }
+
+    public function addPhotoSortie(PhotoSortie $photoSortie): self
+    {
+        if (!$this->photoSortie->contains($photoSortie)) {
+            $this->photoSortie->add($photoSortie);
+            $photoSortie->setSortie($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhotoSortie(PhotoSortie $photoSortie): self
+    {
+        if ($this->photoSortie->removeElement($photoSortie)) {
+            // set the owning side to null (unless already changed)
+            if ($photoSortie->getSortie() === $this) {
+                $photoSortie->setSortie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAdresse(): ?Lieu
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Lieu $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }
