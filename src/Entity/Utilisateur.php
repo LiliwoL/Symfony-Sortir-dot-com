@@ -50,6 +50,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $nomPhoto = null;
 
+    #[ORM\Column]
+    private ?bool $isCguAccepte = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -200,6 +203,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNomPhoto(?string $nomPhoto): self
     {
         $this->nomPhoto = $nomPhoto;
+
+        return $this;
+    }
+
+    public function isIsCguAccepte(): ?bool
+    {
+        return $this->isCguAccepte;
+    }
+
+    public function setIsCguAccepte(bool $isCguAccepte): self
+    {
+        $this->isCguAccepte = $isCguAccepte;
 
         return $this;
     }
