@@ -48,7 +48,7 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof Utilisateur) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+            throw new UnsupportedUserException(sprintf('Les instances de "%s" ne sont pas supportées.', \get_class($user)));
         }
 
         $user->setPassword($newHashedPassword);
