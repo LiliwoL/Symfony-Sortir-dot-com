@@ -16,6 +16,9 @@ class PhotoSortie
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $nom = null;
 
+    #[ORM\ManyToOne(inversedBy: 'photoSortie')]
+    private ?Sortie $sortie = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class PhotoSortie
     public function setNom(?string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getSortie(): ?Sortie
+    {
+        return $this->sortie;
+    }
+
+    public function setSortie(?Sortie $sortie): self
+    {
+        $this->sortie = $sortie;
 
         return $this;
     }
