@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
-class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
+class Utilisateur implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -62,11 +62,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prenom = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    #[Assert\Regex(
-        pattern: '/\d{10}$/',
-        match: false,
-        message: 'Votre saisie n`est pas valide',
-    )]
+
     private ?string $telephone = null;
 
     #[ORM\Column]
