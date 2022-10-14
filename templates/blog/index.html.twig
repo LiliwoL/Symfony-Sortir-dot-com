@@ -17,6 +17,7 @@
     <!-- style css -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("css/blog.css") }}">
     <!-- Responsive-->
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <!-- Javascript-->
@@ -32,50 +33,66 @@
     {% endblock %}
 </head>
 <body>
-    <style>
-        body {
-            width: 70%;
-            margin: auto;
-            color: black;
-            background-color: #011f39;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 50px;
-            color: white
-        }
-
-        article {
-            border: 2px solid gray;
-            border-radius: 10px;
-            margin: 20px;
-            padding: 10px;
-            font-size: 1.2em;
-            background-color: white;
-        }
-
-        .nom {
-            font-weight: bold;
-        }
-
-        .content {
-
-        }
-
-        .commentaire {
-            font-size: 0.8em;
-        }
-
-    </style>
     <h1>Blog des développeurs</h1>
     <article>
-        <div class="nom">Stagiaire</div>
-        <div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda corporis cum, dicta expedita facere harum impedit laboriosam magnam nesciunt odit pariatur perferendis provident quae quibusdam quod sequi velit voluptas.</div>
-        <hr>
+        <h2> Mot du président Scrum</h2>
+        <div class="credit">Votre gourou - le 14 octobre 2022 à 15h36</div>
+        <div class="content">
+            <p>
+                Développeur Concepteur d'Avenir<br>
+                Nous au moins on sait l'écrire
+            </p>
+            <p>
+                👏👏👏👏👏👏
+            </p>
+        </div>
         <div class="commentaire">
-            <div class="nom">Commentaire de PDF de PDG</div>
-            <div class="content">Vous savez communiquer avec le monde entier.</div>
+            <div class="nom">Commentaire de <span class="credit">Membre actif - le 10 octobre 2022 à 12h29</span></div>
+            <div class="content">
+                <p>Trop fort.</p>
+            </div>
+        </div>
+    </article>
+    <article>
+        <h2>Wordpress - Débats, débats, des barres !</h2>
+        <div class="credit">Anonymous engagé - le 31 septembre 2022 à 00h02</div>
+        <div class="content">
+            <p>
+                Les rappeurs des nouvelles générations ont remis au goût du jour la célèbre confrontation entre chansons interposées des années jadis. C'est en 2010 que Boubou lance la tendance avec sa célèbre répétition "Qu'est-ce j'vais faire de tout ce Wordpress ?"
+            </p>
+            <video controls  src="{{ asset('assets/musics/wp_booba.mp4') }}"></video>
+            <p>
+                ORLsale, dans son style de prose, y réponds sans commodités : <i>Wordpress ou la Mort</i> devient un top tendance du hit-parade. Un extrait vaut plus qu'une longue explication alors voici le refrain :
+            </p>
+            <video controls  src="{{ asset('assets/musics/wp_orelsan.mp4') }}"></video>
+            <p>
+                Mais qui se souvient de La Z'navour qui le premier mit les pieds dans le plats ? Sûrement pas les moins de 20 ans (ndlr: 😂). C'est après l'hiver et avant le printemps, en 62, que les premiers mots de ce débat sans fin ont pu être entendus sur les ondes. Place à l'artiste qui dénonce :
+            </p>
+            <video controls  src="{{ asset('assets/musics/wp_aznavour.mp4') }}"></video>
+            <p>
+                Nota bene spécial à notre cher Julien Leclerc, qui a tranché dans le lard comme personne, avec son hymne emblématique dans lequel il affirme contre vents et marées, que Wordpress, c'est son "IDE à lui" !
+            </p>
+            <video controls  src="{{ asset('assets/musics/wp_julien_clerc.mp4') }}"></video>
+            <p>
+                Et vous, vous lanceriez le débat au cours d'une sortie SORTIRDOTCOM ? Si oui, venez me rejoindre !
+            </p>
+        </div>
+    </article>
+    <article>
+        <h2> Mon Premier Post</h2>
+        <div class="credit">Stagiaire - le 14 octobre 2022 à 15h36</div>
+        <div class="content">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda corporis cum, dicta expedita facere harum impedit laboriosam magnam nesciunt odit pariatur perferendis provident quae quibusdam quod sequi velit voluptas.
+            </p>
+        </div>
+        <div class="commentaire">
+            <div class="nom">Commentaire de <span class="credit">PDF de PDG - le 26 octobre 2022 à 9h52</span></div>
+            <div class="content">
+                <p>
+                    Vous savez communiquer avec le monde entier.
+                </p>
+            </div>
         </div>
     </article>
 </body>
