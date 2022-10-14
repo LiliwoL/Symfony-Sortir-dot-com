@@ -12,7 +12,8 @@ class AccueilController extends AbstractController
     public function index(): Response
     {
             return $this->render('accueil/index.html.twig', [
-
-        ]);
+                'last_username' => "", // see login
+                'error' => "" // see login
+            ]);
     }
 }
