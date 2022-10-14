@@ -37,6 +37,7 @@ class RegistrationController extends AbstractController
             // Default values
             $user->setIsCguAccepte(false);
             // encode the plain password
+            //By default provisional password is generated randomly
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
