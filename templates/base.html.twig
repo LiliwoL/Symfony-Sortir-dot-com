@@ -47,14 +47,44 @@
                         <ul class="navbar-nav mr-auto">
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">S'inscrire</a>
+                            </li>
+                            {% if app.user %}
+                                <li class="nav-item">
+                                <a class="nav-link" href="#">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Se connecter</a>
+
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    <img src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><label>Pseudo: </label>{{ app.user.userIdentifier }}</li>
+                                    <li class="dropdown-item"> <label>Prenom: </label>{{ app.user.prenom }}</li>
+                                    <li class="dropdown-item"><label> Nom:</label> {{ app.user.nom }}</li>
+                                    <li class="dropdown-item"> <label> Tel:</label>{{ app.user.telephone }}</li>
+                                    <li class="dropdown-item"><label> Email:</label> {{ app.user.courriel }}</li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li class="dropdown-item"> <a href="{{ path('profile_edit') }}">Modifier</a></li>
+                                    <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">me déconnecter</a></li>
+
+
+                                </ul>
+                            </li>
+                     {% endif%}
+                            {% if not app.user %}
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><img src="" alt="profil"></a>
+                                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                             </li>
+                      {% if is_granted("ROLE_ADMIN") %}
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">S'inscrire</a>
+                            </li>
+                            {% endif %}
+                            {% endif %}
+
                         </ul>
                     </div>
                 </nav>

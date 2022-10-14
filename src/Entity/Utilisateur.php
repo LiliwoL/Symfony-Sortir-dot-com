@@ -63,7 +63,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 20, nullable: true)]
     #[Assert\Regex(
-        pattern: '/\d{10}$',
+        pattern: '/\d{10}$/',
         match: false,
         message: 'Votre saisie n`est pas valide',
     )]
