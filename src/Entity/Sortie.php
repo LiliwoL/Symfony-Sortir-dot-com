@@ -34,7 +34,7 @@ class Sortie
         min : 10,
         max : 255,
         minMessage : "Un effort dans la saisie, vous devez ajoutez au moins {{ limit }} caractères ",
-        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
+        maxMessage : "Votre saisie ne doit pas dépasser {{ limit }} caractères" )]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

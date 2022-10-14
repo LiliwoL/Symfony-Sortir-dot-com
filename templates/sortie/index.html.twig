@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortie index{% endblock %}
+
+{% block body %}
+    <h1>Sortie index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>NbInscriptionMax</th>
+                <th>Description</th>
+                <th>Date_enregistrement</th>
+                <th>Date_ouverture_inscription</th>
+                <th>Date_fermeture_inscription</th>
+                <th>IsAnnulee</th>
+                <th>Date_debut_sortie</th>
+                <th>Date_fin_sortie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sortie in sorties %}
+            <tr>
+                <td>{{ sortie.id }}</td>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.nbInscriptionMax }}</td>
+                <td>{{ sortie.description }}</td>
+                <td>{{ sortie.dateEnregistrement ? sortie.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sortie.dateOuvertureInscription ? sortie.dateOuvertureInscription|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sortie.dateFermetureInscription ? sortie.dateFermetureInscription|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sortie.isAnnulee ? 'Yes' : 'No' }}</td>
+                <td>{{ sortie.dateDebutSortie ? sortie.dateDebutSortie|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sortie.dateFinSortie ? sortie.dateFinSortie|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">show</a>
+                    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_sortie_new') }}">Create new</a>
+{% endblock %}
