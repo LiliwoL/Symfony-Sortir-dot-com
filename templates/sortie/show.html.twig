@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortie{% endblock %}
+
+{% block body %}
+    <h1>Sortie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sortie.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ sortie.nom }}</td>
+            </tr>
+            <tr>
+                <th>NbInscriptionMax</th>
+                <td>{{ sortie.nbInscriptionMax }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ sortie.description }}</td>
+            </tr>
+            <tr>
+                <th>Date_enregistrement</th>
+                <td>{{ sortie.dateEnregistrement ? sortie.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_ouverture_inscription</th>
+                <td>{{ sortie.dateOuvertureInscription ? sortie.dateOuvertureInscription|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fermeture_inscription</th>
+                <td>{{ sortie.dateFermetureInscription ? sortie.dateFermetureInscription|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IsAnnulee</th>
+                <td>{{ sortie.isAnnulee ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut_sortie</th>
+                <td>{{ sortie.dateDebutSortie ? sortie.dateDebutSortie|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin_sortie</th>
+                <td>{{ sortie.dateFinSortie ? sortie.dateFinSortie|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_sortie_index') }}">back to list</a>
+
+    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
+
+    {{ include('sortie/_delete_form.html.twig') }}
+{% endblock %}
