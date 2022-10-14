@@ -11,9 +11,13 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function index(): Response
     {
-            return $this->render('accueil/index.html.twig', [
-                'last_username' => "", // see login
-                'error' => "" // see login
-            ]);
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_utlisateur');
+        }
+
+        return $this->render('accueil/index.html.twig', [
+            'last_username' => "", // see login
+            'error' => "" // see login
+        ]);
     }
 }
