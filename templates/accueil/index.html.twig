@@ -193,6 +193,23 @@
                 }, 10, destX, destY);
             }
 
+            let sound;
+            let choice = Math.random();
+            console.log(choice);
+            if (choice < 0.1) {
+                sound = new Audio("{{ asset('assets/sounds/effects/lancement1.mp3') }}");
+            } else if (choice < 0.2){
+                sound = new Audio("{{ asset('assets/sounds/effects/lancement2.mp3') }}");
+            } else if (choice < 0.45){
+                sound = new Audio("{{ asset('assets/sounds/effects/explosion1.mp3') }}");
+            } else if (choice < 0.75){
+                sound = new Audio("{{ asset('assets/sounds/effects/explosion2.mp3') }}");
+            } else {
+                sound = new Audio("{{ asset('assets/sounds/effects/explosion3.mp3') }}");
+            }
+            sound.loop = false;
+            sound.play();
+
             // Remove all dots after 1.5s
             this.feuArtificleClean = setTimeout((container) => {
                 container.innerHTML = "";
