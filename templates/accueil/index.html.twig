@@ -67,6 +67,7 @@
             top: 0; left: 0; right: 0; bottom: 0;
             display: block;
             background-size: cover;
+            min-width: 1000px;
             transform: translateZ(-.5px) scale(1.6);
             z-index: -1;
         }
@@ -84,7 +85,7 @@
         }
 
         .section6::before {
-            background: url({{ asset('/assets/images/accueilBG4.jpg') }}) top center;
+            background: url({{ asset('/assets/images/accueilBG6.png') }}) top center;
         }
 
         .section8::before {
@@ -161,19 +162,54 @@
             transform-style: preserve-3d;
             font-size: 62.5%;
             font-family: 'Overlock', Arial, Helvetica, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .toLogin {
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            z-index: 10;
         }
     </style>
 </head>
 <body>
+    <a class="toLogin" href="#login"><img src="{{ asset('/assets/images/fleche.png') }}" alt="goToLogin"></a>
     <section class="section0">
         <div class="content">
             <h2>SORTIRDOTCOM</h2>
             <div>LE réseau social des l'ENI</div>
         </div>
     </section>
-    <section class="section1">
+    <section class="section1" id="login">
         <div class="content">
-            <h2>/login</h2>
+            <h2 class="h3 mb-3 font-weight-normal">Connecte-toi</h2>
+            <form action="{{ path('app_login') }}" method="post">
+            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required placeholder="Nom d'utilisateur">
+                <br>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+                <br>
+                <br>
+            <button class="btn btn-lg btn-primary" type="submit">
+                Se connecter
+            </button>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Rester connecté après avoir quitté le site
+                </label>
+            </div>
+
+            </form>
+            <br>
+            <br>
+            <div>
+                <a href="{{ path('app_forgot_password_request') }}">Réinitialiser son mot de passe</a>
+            </div>
         </div>
     </section>
     <section class="section2">
@@ -209,8 +245,8 @@
         <div class="content">
             <div>
                 <hr>
-                Site de réseau social produit le groupe Alexandre-Luc-Manel<br>
-                Projet de groupe durant la formation à l'ENI 2022-23
+                Site&nbsp;de&nbsp;réseau&nbsp;social produit&nbsp;par le&nbsp;groupe <strong>Alexandre&nbsp;Luc&nbsp;Manel</strong><br><br>
+                Projet&nbsp;de&nbsp;groupe durant&nbsp;la&nbsp;formation à&nbsp;l'<strong>&nbsp;ENI&nbsp;2022-23</strong>
             </div>
         </div>
     </section>
@@ -219,5 +255,12 @@
 
         </div>
     </section>
+    <script>
+        window.addEventListener('load', () => {
+            if (window.location.href.indexOf("login") !== -1) {
+                window.location.href = "#login";
+            }
+        });
+    </script>
 </body>
 </html>
