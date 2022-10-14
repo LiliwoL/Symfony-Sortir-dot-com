@@ -20,12 +20,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 20, unique: true)]
     #[Assert\Length(
         min : 2,
-        max : 180,
-        minMessage : "Votre saisie doit être de {{limit}} caractères minimum",
-        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
+        max : 20,
+        minMessage : 'Votre saisie doit être minimum de {{ limit }} caractères',
+        maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
     private ?string $username = null;
 
     #[ORM\Column]
@@ -37,24 +37,28 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 50)]
     #[Assert\Email(
-        message : "L'adresse email saisie  {{value}} n'est pas valide" )]
+        message : 'L`adresse email saisie {{ value }}  n`est pas valide' )]
     private ?string $courriel = null;
 
     #[ORM\Column]
     private ?bool $isVerified = false;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 20)]
     #[Assert\Length(
-        max : 50,
-        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
+        min : 2,
+        max : 20,
+        minMessage : 'Votre saisie doit être minimum de {{ limit }} caractères ',
+        maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 20)]
     #[Assert\Length(
-        max : 50,
-        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
+        min : 2,
+        max : 20,
+        minMessage : 'Votre saisie doit être minimum de {{ limit }} caractères' ,
+        maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 20, nullable: true)]
@@ -68,10 +72,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isActif = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
+    #[ORM\Column(length: 20, nullable: true)]
     #[Assert\Length(
-        max : 100,
-        maxMessage : "Le nom de fichier ne doit pas dépasser {{limit}} caractères" )]
+        min : 2,
+        max : 20,
+        minMessage : 'Le nom de fichier doit être minimum de {{ limit }} caractères',
+        maxMessage : 'Le nom de fichier ne doit pas dépasser {{ limit }} caractères' )]
     private ?string $nomPhoto = null;
 
     #[ORM\Column]
