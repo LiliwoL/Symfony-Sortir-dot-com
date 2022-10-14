@@ -73,6 +73,10 @@ section:nth-child(even) {
     color: white;
 }
 
+.section0 .content {
+    user-select: none;
+}
+
 .content div {
     font-size: 2em;
 }
@@ -121,4 +125,17 @@ body {
     bottom: 50px;
     right: 50px;
     z-index: 10;
+}
+/*************************************************************
+  FEU ARTIFICE
+**************************************************************/
+.feu {
+    transition-property: top, left, opacity;
+    transition-duration: 1s;
+    position: absolute;
+    z-index: 1;
+
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
 }

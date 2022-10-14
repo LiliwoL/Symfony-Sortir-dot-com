@@ -51,6 +51,7 @@
 </head>
 <body>
     <a class="toLogin" href="#login"><img src="{{ asset('/assets/images/fleche.png') }}" alt="goToLogin"></a>
+    <div id="feuArtifice"></div>
     <section class="section0">
         <div class="content">
             <h2 id="mainTitle">SORTIRDOTCOM</h2>
@@ -156,6 +157,48 @@
 
             }, 150);
         }());
+
+        let feuArtificleClean;
+        let colors = ["red", "yellow", "#b25eff", "#07ff00", "#67c4ff"];
+        document.querySelector('.section0').addEventListener('click', (event) => {
+            // Don't remove all dots because of a new click
+            if (typeof this.feuArtificleClean !== undefined) {
+                clearTimeout(this.feuArtificleClean);
+            }
+
+            const container = document.getElementById("feuArtifice");
+
+            const r = 200;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const mouseX = event.x;
+            const mouseY = event.y;
+
+            for (let i = 0; i < 100; i++) {
+                let feuArtifice = document.createElement('div');
+                feuArtifice.className = "feu";
+                feuArtifice.style.left = mouseX + "px";
+                feuArtifice.style.top = mouseY + "px";
+
+                // Display dots in circle
+                const t = Math.random() * 360;
+                const destX = mouseX + (r * Math.cos(t)) + (Math.random() * 35);
+                const destY = mouseY + (r * Math.sin(t)) + (Math.random() * 35);
+
+                container.appendChild(feuArtifice);
+                // Animate with a setTimeout and css properties
+                setTimeout((destX, destY) => {
+                    feuArtifice.style.backgroundColor = color;
+                    feuArtifice.style.left = destX + "px";
+                    feuArtifice.style.top = destY + "px";
+                }, 10, destX, destY);
+            }
+
+            // Remove all dots after 1.5s
+            this.feuArtificleClean = setTimeout((container) => {
+                container.innerHTML = "";
+            }, 1500, container)
+        });
+
     </script>
 </body>
 </html>
