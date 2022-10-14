@@ -53,7 +53,7 @@
     <a class="toLogin" href="#login"><img src="{{ asset('/assets/images/fleche.png') }}" alt="goToLogin"></a>
     <section class="section0">
         <div class="content">
-            <h2>SORTIRDOTCOM</h2>
+            <h2 id="mainTitle">SORTIRDOTCOM</h2>
             <div>LE réseau social des l'ENI</div>
         </div>
     </section>
@@ -132,11 +132,30 @@
         </div>
     </section>
     <script>
+        // Aller au login quand c'est là où on veut aller
         window.addEventListener('load', () => {
             if (window.location.href.indexOf("login") !== -1) {
                 window.location.href = "#login";
             }
         });
+
+        // Animer le titre SORTIRDOTCOM
+        let text = document.getElementById('mainTitle').innerText;
+        let length = text.length;
+        let timeOut;
+        let character = 0;
+        (function typeWriter() {
+            timeOut = setTimeout(function() {
+                character++;
+                document.getElementById('mainTitle').innerText = text.substring(0, character);
+                typeWriter();
+
+                if (character === length) {
+                    clearTimeout(timeOut);
+                }
+
+            }, 150);
+        }());
     </script>
 </body>
 </html>
