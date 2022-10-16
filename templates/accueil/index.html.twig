@@ -61,6 +61,9 @@
     <section class="section1" id="login">
         <div class="content">
             <h2 >Connecte-toi</h2>
+            <div>
+                Rejoinds les {{ nbActif }} personnes actuellement actives sur le site
+            </div>
             <form action="{{ path('app_login') }}" method="post">
             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required placeholder="Nom d'utilisateur">
             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
