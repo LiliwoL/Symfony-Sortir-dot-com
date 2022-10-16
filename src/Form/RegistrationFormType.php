@@ -24,7 +24,6 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
-                'empty_data' => random_bytes(12),
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci d\'entrer votre mot de passe',
