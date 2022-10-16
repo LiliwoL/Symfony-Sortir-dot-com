@@ -47,8 +47,52 @@
                 <th>Date fin sortie</th>
                 <td>{{ sortie.dateFinSortie ? sortie.dateFinSortie|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Adresse</th>
+                <td id="adresse">{{ sortie.adresse.rue }} {{ sortie.adresse.ville.codePostal }} {{ sortie.adresse.ville.nom }}</td>
+            </tr>
         </tbody>
     </table>
+
+    <div id="map" style="height: 500px;"></div>
+
+    {% block stylesheets %}
+        <link rel="stylesheet"
+              href="{{ asset('leaflet/leaflet.css') }}"
+              integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+              crossorigin="" />
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('leaflet/leaflet.js') }}"
+                integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+                crossorigin="">
+        </script>
+    {% endblock %}
+    <script type="text/javascript">
+        let adresseCoordonnees=[{{ sortie.adresse.latitude }}, {{ sortie.adresse.longitude }}];
+        let map = L.map('map').setView(adresseCoordonnees, 16);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker(adresseCoordonnees).addTo(map)
+            .bindPopup('{{ sortie.nom }}')
+            .openPopup();
+        /* TODO Pour afficher une adresse recherchée dans l'aip adresse : PB Quand sera résolu le problème du header Access-Control-Allow-Origin
+        var layerGroup = L.layerGroup().addTo(map);
+        document.getElementById("adresse").addEventListener('click', (event) =>{
+            var adresse = event.target.innerText;
+            var query="http://api-adresse.data.gouv.fr/search/?q=" + adresse;
+            fetch(query,{method: 'get'})
+                .then(r=>r.json())
+                .then(r=>{
+                    layerGroup.clearLayers();
+                    var coords=r.features[0].geometry.coordinates;
+                    // L.marker([coords[1],coords[0]]).addTo(layerGroup);
+                })
+
+        })
+        */
+    </script>
 
     <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
 
