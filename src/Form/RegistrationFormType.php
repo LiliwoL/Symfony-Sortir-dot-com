@@ -22,7 +22,6 @@ class RegistrationFormType extends AbstractType
             ->add('courriel', EmailType::class)
             ->add('nom')
             ->add('prenom')
-            ->add('isActif')
         ;
     }
 

@@ -151,6 +151,8 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $request->getSession()->remove('id_nouveau_utilisateur');
+            // Set actif to true by defautl
+            $user->setIsActif(true);
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
