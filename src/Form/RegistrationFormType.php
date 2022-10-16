@@ -19,25 +19,6 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci d\'entrer votre mot de passe',
-                    ]),
-                    new Length([
-                        // TODO Changer min à 16 avant la production
-                        'min' => 1,
-                        'minMessage' => 'Votre mot de passe doit contenir au minimum {{ limit }} lettres et chiffres',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-                'label' => 'mot de passe'
-            ])
             ->add('courriel', EmailType::class)
             ->add('nom')
             ->add('prenom')

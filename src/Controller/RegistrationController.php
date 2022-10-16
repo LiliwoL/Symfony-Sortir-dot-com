@@ -38,12 +38,18 @@ class RegistrationController extends AbstractController
             $user->setIsCguAccepte(false);
             // encode the plain password
             //By default provisional password is generated randomly
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            try {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        random_bytes(16)
+                    )
+                );
+            } catch (\Exception $e) {
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                ]);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
