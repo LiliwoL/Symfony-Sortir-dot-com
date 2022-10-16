@@ -40,7 +40,6 @@ class RegistrationUtilisateurFormType extends AbstractType
                     ]),
                 ],
                 'label' => 'mot de passe'
-
             ])
             ->add('telephone', TextType::class, [
                 'label' => 'Téléphone (facultatif)'
