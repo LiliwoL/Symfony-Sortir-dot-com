@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Nombre Maximum d'inscrits</th>
                 <th>Description</th>
@@ -18,13 +17,13 @@
                 <th>Est annulée ?</th>
                 <th>Date debut sortie</th>
                 <th>Date fin sortie</th>
+                <th>Organisateur</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for sortie in sorties %}
             <tr>
-                <td>{{ sortie.id }}</td>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.nbInscriptionMax }}</td>
                 <td>{{ sortie.description | slice (0,30) }}</td>
@@ -34,6 +33,7 @@
                 <td>{{ sortie.isAnnulee ? 'Oui' : 'Non' }}</td>
                 <td>{{ sortie.dateDebutSortie ? sortie.dateDebutSortie|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ sortie.dateFinSortie ? sortie.dateFinSortie|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }} </td>
                 <td>
                     <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">Afficher</a>
                     <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">Modifier</a>

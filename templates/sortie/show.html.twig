@@ -12,6 +12,10 @@
                 <td>{{ sortie.id }}</td>
             </tr>
             <tr>
+                <th>Organisateur</th>
+                <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</td>
+            </tr>
+            <tr>
                 <th>Nom</th>
                 <td>{{ sortie.nom }}</td>
             </tr>
@@ -46,6 +50,10 @@
             <tr>
                 <th>Date fin sortie</th>
                 <td>{{ sortie.dateFinSortie ? sortie.dateFinSortie|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td id="lieu">{{ sortie.adresse.nom }}</td>
             </tr>
             <tr>
                 <th>Adresse</th>
