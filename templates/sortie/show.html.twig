@@ -74,7 +74,13 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-        L.marker(adresseCoordonnees).addTo(map)
+        let icon = L.icon({
+            iconUrl: '{{ asset('leaflet/images/marker-icon-2x.png') }}',
+            iconSize: [120, 35],
+            iconAnchor: [60, 34],
+            popupAnchor: [0, -34]
+        });
+        L.marker(adresseCoordonnees, {icon: icon}).addTo(map)
             .bindPopup('{{ sortie.nom }}')
             .openPopup();
         /* TODO Pour afficher une adresse recherchée dans l'aip adresse : PB Quand sera résolu le problème du header Access-Control-Allow-Origin
