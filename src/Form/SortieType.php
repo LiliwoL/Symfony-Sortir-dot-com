@@ -19,29 +19,28 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
-
-            ->add('nbInscriptionMax', TextType::Class)
             ->add('description', TextType::Class)
+            ->add('organisateur', EntityType::Class,
+                [
+                    'class' => Utilisateur::class,
+                    'choice_label' => 'username',
+                    'mapped'=> true,
+                    'multiple' => false,
+
+                ])
+            ->add('nbInscriptionMax', TextType::Class)
+            ->add('adresse', EntityType::class,
+                [
+                    'class' => Lieu::class,
+                    'choice_label' => 'nom',
+
+                ])
             ->add('date_enregistrement', DateTimeType::class)
             ->add('date_ouverture_inscription', DateTimeType::class )
             ->add('date_fermeture_inscription', DateTimeType::class)
             ->add('isAnnulee')
             ->add('date_debut_sortie', DateTimeType::class)
-            ->add('date_fin_sortie', DateTimeType::class )/*
-            ->add('organisateur', EntityType::Class,
-                [
-                    'class' => Utilisateur::class,
-                    'choice_label' => 'sortie',
-                    'multiple' => false,
-                    'expanded' => true
-                ])*/
-
-            ->add('adresse', EntityType::class,
-            [
-                'class' => Lieu::class,
-                'choice_label' => 'rue',
-
-             ])
+            ->add('date_fin_sortie', DateTimeType::class )
 
         ;
 
