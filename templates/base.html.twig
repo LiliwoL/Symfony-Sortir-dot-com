@@ -33,12 +33,12 @@
         {% endblock %}
     </head>
     <body>
-    <div class="header_section">
+    <header class="header_section">
         <div class="container-fluid header_main">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="logo">
-                        <a  href="#"><img src="{{ asset('assets/images/logo-eni.png') }}" alt="logo"></a>
-
+                        <img src="{{ asset('assets/images/logo-eni.png') }}" alt="logo">
+                        <img src="{{ asset('assets/images/logo-sortirdotcom.png') }}" alt="logo">
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -50,7 +50,6 @@
                             <li class="nav-item">
                             </li>
                             {% if app.user %}
-
                                 <li class="nav-item">
                                 <a class="nav-link" href="#">Accueil</a>
                             </li>
@@ -91,7 +90,7 @@
                     </div>
                 </nav>
             </div>
-    </div>>
+    </header>>
         <!-- about section start -->
         <main class="about_section layout_padding">
             <div class="container">

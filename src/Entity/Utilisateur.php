@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['username'], message: 'Le {{ label }} saisi est déjà utilisé ')]
 #[UniqueEntity(fields:['courriel'], message: 'Le {{ label }} saisie est déjà utilisé')]
 
-class Utilisateur implements UserInterface
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
