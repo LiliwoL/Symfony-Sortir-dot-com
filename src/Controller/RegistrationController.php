@@ -37,12 +37,19 @@ class RegistrationController extends AbstractController
             // Default values
             $user->setIsCguAccepte(false);
             // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            //By default provisional password is generated randomly
+            try {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        random_bytes(16)
+                    )
+                );
+            } catch (\Exception $e) {
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                ]);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -57,7 +64,11 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_login');
+            $newUser = new Utilisateur();
+            $newForm = $this->createForm(RegistrationFormType::class, $newUser);
+            return $this->render('registration/register.html.twig', [
+                'registrationForm' => $newForm->createView(),
+            ]);
         }
 
         return $this->render('registration/register.html.twig', [
@@ -74,8 +85,10 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_accueil');
         }
 
-        $id = $request->get('id'); // retrieve the user id from the url
-               // Verify the user id exists and is not null
+        // retrieve the user id from the url
+        $id = $request->get('id');
+
+        // Verify the user id exists and is not null
         if (null === $id) {
             return $this->redirectToRoute('app_accueil');
         }
@@ -87,15 +100,12 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_accueil');
         }
 
-        // Ensure the user has not already
+        // Ensure the user has not already submit this form
         if ($user->isIsCguAccepte()) {
-            // Si l'utilisateur a déjà validé les conditions d'utilisation
-            // alors cela signifie qu'il ne doit pas accéder à ce formulaire
-            // donc :
             return $this->redirectToRoute('app_accueil');
         }
 
-        // validate email confirmation link, sets User::isVerified=true and persists
+        // Validate email confirmation link, sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
@@ -104,8 +114,10 @@ class RegistrationController extends AbstractController
         }
         $this->addFlash('success', 'Votre courriel a bien été vérifié.');
 
-        //$request->getSession()->set("id_nouveau_utilisateur", $user->getId());
-        $this->addFlash("id_nouveau_utilisateur", $user->getId());
+        // Pass safely id_nouveau_utilisateur to app_register_utilisateur route method
+        $request->getSession()->set("id_nouveau_utilisateur", $user->getId());
+
+        // Go to app_register_utilisateur
         $form = $this->createForm(RegistrationUtilisateurFormType::class, $user);
 
         return $this->render('registration/register_utilisateur.html.twig', [
@@ -127,19 +139,20 @@ class RegistrationController extends AbstractController
         }
 
         $user_id = $request->getSession()->get('id_nouveau_utilisateur');
+
         $users = $utilisateurRepository->findBy(['id' => $user_id]);
+        // Ensure the user has not already submit this form
         if (empty($users) || $users[0]->isIsCguAccepte()) {
-            // Si l'utilisateur a déjà validé les conditions d'utilisation
-            // alors cela signifie qu'il ne doit pas accéder à ce formulaire
-            // donc :
             return $this->redirectToRoute('app_accueil');
         }
         $user = $users[0];
+
         $form = $this->createForm(RegistrationUtilisateurFormType::class, $user);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $request->getSession()->remove('id_nouveau_utilisateur');
+            // Set actif to true by defautl
+            $user->setIsActif(true);
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -153,6 +166,7 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_login');
         }
+
         return $this->render('registration/register_utilisateur.html.twig', [
             'registrationUtilisateurForm' => $form->createView()
         ]);

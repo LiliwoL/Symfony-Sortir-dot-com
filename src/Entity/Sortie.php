@@ -20,7 +20,7 @@ class Sortie
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(
-        min : 10,
+        min : 3,
         max : 50,
         minMessage : "Un effort dans votre, vous devez ajoutez au moins {{ limit }} caractères ",
         maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
@@ -31,10 +31,10 @@ class Sortie
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(
-        min : 10,
+        min : 5 ,
         max : 255,
         minMessage : "Un effort dans la saisie, vous devez ajoutez au moins {{ limit }} caractères ",
-        maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
+        maxMessage : "Votre saisie ne doit pas dépasser {{ limit }} caractères" )]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

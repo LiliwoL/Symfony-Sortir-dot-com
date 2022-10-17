@@ -12,7 +12,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+
+#[UniqueEntity(fields: ['username'], message: 'Le {{ label }} saisi est déjà utilisé ')]
+#[UniqueEntity(fields:['courriel'], message: 'Le {{ label }} saisie est déjà utilisé')]
+
 class Utilisateur implements UserInterface
 {
     #[ORM\Id]
@@ -61,6 +64,12 @@ class Utilisateur implements UserInterface
         maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
     private ?string $prenom = null;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/^[0-9]{10}$/',
+        match: true,
+        message: 'Votre saisie n`est pas valide',
+    )]
     #[ORM\Column(length: 20, nullable: true)]
 
     private ?string $telephone = null;

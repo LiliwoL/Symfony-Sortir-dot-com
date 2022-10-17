@@ -6,6 +6,7 @@ use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -18,7 +19,9 @@ class RegistrationUtilisateurFormType extends AbstractType
     {
         $builder
             ->setAction('/register')
-            ->add('username')
+            ->add('username', TextType::class, [
+                'label' => 'Pseudo'
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -38,9 +41,12 @@ class RegistrationUtilisateurFormType extends AbstractType
                 ],
                 'label' => 'mot de passe'
             ])
-            ->add('telephone')
+            ->add('telephone', TextType::class, [
+                'label' => 'Téléphone (facultatif)'
+            ])
             //->add('nomPhoto')
             ->add('cgu', CheckboxType::class, [
+                'label' => 'Accepter les conditions générales d\'utilisation',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
