@@ -234,6 +234,10 @@ a:hover{
     height : 10vh;
 }
 
+.logo img {
+    float: left;
+}
+
 .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 15px;
     padding-left: 15px;
