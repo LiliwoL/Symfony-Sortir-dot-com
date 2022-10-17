@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Utilisateur;
+
 use App\Form\ModifierProfilType;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,9 +26,9 @@ class UtlisateurController extends AbstractController
     #[Route('/espace_membre/profile', name: 'profile_edit')]
     public function edit(
 
-        Request                $request,
-        EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $userPasswordHasher,
+        Request                     $request,
+        EntityManagerInterface      $entityManager,
+       // UserPasswordEncoderInterface $passwordEncoder,
 
     ): Response
     {
@@ -37,13 +37,7 @@ class UtlisateurController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+        //    $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('message' , 'profil mis à jour');

@@ -16,13 +16,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['username'], message: 'Le {{ label }} saisi est déjà utilisé ')]
 #[UniqueEntity(fields:['courriel'], message: 'Le {{ label }} saisie est déjà utilisé')]
 
-class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
+class Utilisateur implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
 
     #[ORM\Column(length: 20, unique: true)]
     #[Assert\Length(
@@ -30,7 +29,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         max : 20,
         minMessage : 'Votre saisie doit être minimum de {{ limit }} caractères',
         maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
-
     private ?string $username = null;
 
     #[ORM\Column]
@@ -72,6 +70,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         match: true,
         message: 'Votre saisie n`est pas valide',
     )]
+    #[ORM\Column(length: 20, nullable: true)]
+
     private ?string $telephone = null;
 
     #[ORM\Column]
