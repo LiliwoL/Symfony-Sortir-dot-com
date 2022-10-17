@@ -26,7 +26,6 @@ class SortieType extends AbstractType
                     'choice_label' => 'username',
                     'mapped'=> true,
                     'multiple' => false,
-
                 ])
             ->add('nbInscriptionMax', TextType::Class)
             ->add('adresse', EntityType::class,
