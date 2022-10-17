@@ -23,20 +23,12 @@ class ModifierProfilType extends AbstractType
             ->add('nom')
             ->add('telephone')
             ->add('courriel')
-            ->add('password', PasswordType::class, [
-                'mapped' => false,
-                'required' => false,
-            ])
-            ->add('confirmPassword', PasswordType::class, [
-                'mapped' => false,
-                'required' => false,
-            ])
-           ->add('site',EntityType::class, [
+            ->add('site',EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'nom',
-               'multiple'=>false,
-               'expanded'=>false
-           ])
+                'multiple'=>false,
+                'expanded'=>false
+            ])
             /*
             ->add('site',EntityType::class, [
                 'class' => Site::class,
