@@ -60,27 +60,39 @@
     </section>
     <section class="section1" id="login">
         <div class="content">
-            <h2 >Connecte-toi</h2>
-            <div>
-                Rejoinds les {{ nbActif }} personnes actuellement actives sur le site
-            </div>
-            <form action="{{ path('app_login') }}" method="post">
-            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required placeholder="Nom d'utilisateur">
-            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+            {% if app.user %}
+                <h2 >Retournes-y</h2>
+                <div>
+                    Rejoinds les {{ nbActif }} personnes actuellement actives sur le site
+                </div>
+                <div>
+                    <a href="{{ path('app_utlisateur') }}">Retour à l'espace membre</a>
+                </div>
+            {% endif %}
+            {% if not app.user %}
+                <h2 >Connecte-toi</h2>
+                <div>
+                    Rejoinds les {{ nbActif }} personnes actuellement actives sur le site
+                </div>
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <form action="{{ path('app_login') }}" method="post">
+                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required placeholder="Nom d'utilisateur">
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
 
-            <button class="btn btn-lg btn-primary" type="submit">
-                Se connecter
-            </button>
-                <br>
-            <input type="checkbox" name="_remember_me" id="remember_me">
-            <label for="remember_me">Rester connecté après avoir quitté le site</label>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            </form>
-            <div>
-                <a href="{{ path('app_forgot_password_request') }}">Réinitialiser son mot de passe</a>
-            </div>
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Se connecter
+                </button>
+                    <br>
+                <input type="checkbox" name="_remember_me" id="remember_me">
+                <label for="remember_me">Rester connecté après avoir quitté le site</label>
+
+                </form>
+                <div>
+                    <a href="{{ path('app_forgot_password_request') }}">Réinitialiser son mot de passe</a>
+                </div>
+            {% endif %}
         </div>
     </section>
     <section class="section2">
