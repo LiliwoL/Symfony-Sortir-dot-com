@@ -33,7 +33,7 @@ class ModifierProfilType extends AbstractType
             ])
            ->add('site',EntityType::class, [
                 'class' => Site::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
                'multiple'=>false,
                'expanded'=>false
            ])
