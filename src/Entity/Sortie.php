@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
 {
+    public ?string $etat;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
