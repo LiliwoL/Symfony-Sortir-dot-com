@@ -64,14 +64,12 @@ class Utilisateur implements UserInterface
         maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
     #[Assert\Regex(
         pattern: '/^[0-9]{10}$/',
-        match: true,
         message: 'Votre saisie n`est pas valide',
+        match: true,
     )]
-    #[ORM\Column(length: 20, nullable: true)]
-
+    #[ORM\Column(length: 10, nullable: true)]
     private ?string $telephone = null;
 
     #[ORM\Column]

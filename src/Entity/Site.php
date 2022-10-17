@@ -22,6 +22,9 @@ class Site
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $localisation = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $nom = null;
+
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
@@ -70,6 +73,18 @@ class Site
     public function setLocalisation(Lieu $localisation): self
     {
         $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
 
         return $this;
     }

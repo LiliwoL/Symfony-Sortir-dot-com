@@ -1,5 +1,3 @@
-/*
-
 delete from ville;
 delete from lieu;
 delete from site;
@@ -9,7 +7,6 @@ delete from photo_sortie;
 delete from inscription;
 
 delete from sqlite_sequence;
- */
 
 /*Jeux de donnéees ville */
 
@@ -36,12 +33,12 @@ VALUES
 
 /* Jeux de données site */
 
-INSERT INTO site (localisation_id)
+INSERT INTO site (localisation_id, nom)
 VALUES
-(2),
-(4),
-(5),
-(6);
+(2, 'ENI Campus Nantes'),
+(4 ,'ENI Campus Rennes'),
+(5 ,'ENI Campus Quimper'),
+(6 , 'ENI Campus Niort');
 
 /* Jeux de données utilisateur*/
 
