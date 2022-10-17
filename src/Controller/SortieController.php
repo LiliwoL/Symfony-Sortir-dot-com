@@ -27,16 +27,20 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
+        //$etat = $this->container->get('etatService')->calculEtat($sortie);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $sortieRepository->save($sortie, true);
 
+
+            $sortieRepository->save($sortie, true);
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form,
+           // 'etat' =>$etat,
         ]);
     }
 
