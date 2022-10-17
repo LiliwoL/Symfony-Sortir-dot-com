@@ -66,24 +66,25 @@
 
     {% block stylesheets %}
         <link rel="stylesheet"
-              href="{{ asset('leaflet/leaflet.css') }}"
+              href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
               integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
               crossorigin="" />
     {% endblock %}
     {% block javascripts %}
-        <script src="{{ asset('leaflet/leaflet.js') }}"
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
                 integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
                 crossorigin="">
         </script>
     {% endblock %}
     <script type="text/javascript">
         let adresseCoordonnees=[{{ sortie.adresse.latitude }}, {{ sortie.adresse.longitude }}];
+        console.log(L);
         let map = L.map('map').setView(adresseCoordonnees, 16);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         let icon = L.icon({
-            iconUrl: '{{ asset('leaflet/images/marker-icon-2x.png') }}',
+            iconUrl: '{{ asset('assets/images/carte/marker-icon-2x.png') }}',
             iconSize: [120, 35],
             iconAnchor: [60, 34],
             popupAnchor: [0, -34]

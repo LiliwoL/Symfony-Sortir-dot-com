@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UtlisateurController extends AbstractController
 {
-    #[Route('/utlisateur', name: 'app_utlisateur')]
+    #[Route('/espace_membre/utilisateur', name: 'app_utlisateur')]
     public function index(): Response
     {
         return $this->render('utlisateur/index.html.twig', [
@@ -23,7 +23,7 @@ class UtlisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/profile', name: 'profile_edit')]
+    #[Route('/espace_membre/profile', name: 'profile_edit')]
     public function edit(
 
         Request                     $request,
