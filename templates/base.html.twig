@@ -33,12 +33,12 @@
         {% endblock %}
     </head>
     <body>
-    <div class="header_section">
+    <header class="header_section">
         <div class="container-fluid header_main">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="logo">
-                        <a  href="#"><img src="{{ asset('assets/images/logo-eni.png') }}" alt="logo"></a>
-
+                        <img src="{{ asset('assets/images/logo-eni.png') }}" alt="logo">
+                        <img src="{{ asset('assets/images/logo-sortirdotcom.png') }}" alt="logo">
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -46,28 +46,44 @@
                     </button>
                     <div class="collapse navbar-collapse show" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-
-                            <li class="nav-item">
-                            </li>
                             {% if app.user %}
-
                                 <li class="nav-item">
-                                <a class="nav-link" href="#">Accueil</a>
-                            </li>
-                            <li class="nav-item">
-
-                            </li>
-                            <li class="nav-item dropdown">
+                                    <a class="nav-link" href="#">&nbsp;&nbsp; Lieux &nbsp;&nbsp;</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link" href="#">&nbsp;&nbsp; Sites &nbsp;&nbsp;</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">&nbsp;&nbsp;Accueil&nbsp;&nbsp;</a>
+                                </li>
+                                <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                                     <img src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
                                 <ul class="dropdown-menu">
-                                    <li class="dropdown-item"><label>Pseudo: </label>{{ app.user.userIdentifier }}</li>
-                                    <li class="dropdown-item"> <label>Prenom: </label>{{ app.user.prenom }}</li>
-                                    <li class="dropdown-item"><label> Nom:</label> {{ app.user.nom }}</li>
-                                    <li class="dropdown-item"> <label> Tel:</label>{{ app.user.telephone }}</li>
-                                    <li class="dropdown-item"><label> Email:</label> {{ app.user.courriel }}</li>
-                                    <li>
-                                        <hr class="dropdown-divider">
+                                    <table cellpadding="20">
+                                        <tr>
+                                            <td><strong>Pseudo</strong></td>
+                                            <td>{{ app.user.userIdentifier }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Prénom</strong></td>
+                                            <td>{{ app.user.prenom }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Nom</strong></td>
+                                            <td>{{ app.user.nom }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tél</strong></td>
+                                            <td>{{ app.user.telephone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>E-mail</strong></td>
+                                            <td>{{ app.user.courriel }}</td>
+                                        </tr>
+                                    </table>
+
+                                    <hr class="dropdown-divider">
                                     </li>
                                     <li class="dropdown-item"> <a href="{{ path('profile_edit') }}">Modifier</a></li>
                                     <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">me déconnecter</a></li>
@@ -91,7 +107,7 @@
                     </div>
                 </nav>
             </div>
-    </div>>
+    </header>
         <!-- about section start -->
         <main class="about_section layout_padding">
             <div class="container">
@@ -101,6 +117,7 @@
             </div>
         </main>
         <!-- about section end -->
+    </body>
         <!-- footer section start -->
         <footer class="footer_section layout_padding margin_top_90">
             <!-- copyright section start -->
@@ -114,5 +131,5 @@
             </div>
             <!-- footer section end -->
         </footer>
-    </body>
+
 </html>

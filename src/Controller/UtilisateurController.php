@@ -13,13 +13,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 //use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UtlisateurController extends AbstractController
+class UtilisateurController extends AbstractController
 {
     #[Route('/espace_membre/utilisateur', name: 'app_utlisateur')]
     public function index(): Response
     {
-        return $this->render('utlisateur/index.html.twig', [
-            'controller_name' => 'UtlisateurController',
+        return $this->render('utilisateur/index.html.twig', [
+            'controller_name' => 'UtilisateurController',
         ]);
     }
 
@@ -44,7 +44,7 @@ class UtlisateurController extends AbstractController
             return $this->redirect($this->generateUrl('profile_edit'));
         }
         //
-        return $this->render('utlisateur/edit.html.twig', [
+        return $this->render('utilisateur/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
