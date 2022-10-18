@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\InscriptionRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, SortieRepository $sortieRepository): Response
+    public function index(Request $request, SortieRepository $sortieRepository, InscriptionRepository $inscriptionRepository): Response
     {
         $form = $this->createFormBuilder()
                 ->add('site', EntityType::class, [
@@ -58,8 +59,26 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
 
         // Calcul de l'état de la sortie
-        $dateCourante= new \DateTime();
+
         foreach ($sortieRepository->findAll() as $sortie){
+
+            //Calcul du nombre d'inscrit
+            $sortie->nbInscrit=$inscriptionRepository->count(['sortie'=>$sortie->getId()]);
+            $sortie->estInscrit=false;
+
+            //Utilisateur est-il inscrit ?
+            $userId=$this->getUser()->getId();
+            $sortieId=$sortie->getId();
+            dump($inscriptionRepository->estInscrit($userId,$sortieId));
+
+
+            if($inscriptionRepository->estInscrit($userId,$sortieId)){
+                $sortie->estInscrit=true;
+            }
+
+            //Determination des états
+
+            $dateCourante= new \DateTime();
             $sortie->etat='NON VALIDE';
             if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->etat = 'EN CREATION'; }
             if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->etat = 'OUVERT'; }
@@ -68,13 +87,13 @@ class SortieController extends AbstractController
             if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->etat = 'ARCHIVE'; }
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        //if ($form->isSubmitted() && $form->isValid()) {
             // TODO Faire le traitement du formulaire
-        }
+        //}
 
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
-            'form' => $form->createView()
+            //'form' => $form->createView()
         ]);
     }
 

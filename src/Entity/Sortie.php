@@ -79,7 +79,10 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $adresse = null;
 
+    //TODO changer les porter à private + getter et setter
     public string $etat;
+    public int $nbInscrit;
+    public bool $estInscrit;
 
     public function __construct()
     {

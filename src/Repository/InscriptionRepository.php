@@ -42,18 +42,23 @@ class InscriptionRepository extends ServiceEntityRepository
 //    /**
 //     * @return Inscription[] Returns an array of Inscription objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
+    public function estInscrit(int $UserId, int $sortieId): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.utilisateur = :idUser')
+            ->setParameter('idUser', $UserId)
+            ->andWhere('i.sortie = :idSortie')
+            ->setParameter('idSortie', $sortieId)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+//       $queryBuilder=$inscriptionRepository->createQueryBuilder('i');
+//        $query=$queryBuilder->select('i.id')
+//            ->where('i.utilisateur = :idUser')
+//            ->setParameter('idUser', $userId)
 //            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
+//            ->getResult();
 //    public function findOneBySomeField($value): ?Inscription
 //    {
 //        return $this->createQueryBuilder('i')
