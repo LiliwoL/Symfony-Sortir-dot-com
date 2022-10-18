@@ -38,26 +38,31 @@ class Sortie
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_enregistrement = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_ouverture_inscription = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_fermeture_inscription = null;
 
     #[ORM\Column]
     private ?bool $isAnnulee = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_debut_sortie = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_fin_sortie = null;
 
     #[ORM\ManyToOne(inversedBy: 'sortie')]
@@ -73,6 +78,8 @@ class Sortie
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $adresse = null;
+
+    public string $etat;
 
     public function __construct()
     {
