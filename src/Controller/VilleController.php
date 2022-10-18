@@ -6,6 +6,8 @@ use App\Entity\Ville;
 use App\Form\VilleType;
 use App\Repository\VilleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,11 +15,28 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/ville')]
 class VilleController extends AbstractController
 {
-    #[Route('/', name: 'app_ville_index', methods: ['GET'])]
-    public function index(VilleRepository $villeRepository): Response
+    #[Route('/', name: 'app_ville_index', methods: ['GET', 'POST'])]
+    public function index(Request $request ,VilleRepository $villeRepository): Response
     {
+        $ville = new Ville();
+        //dump($request->request->all()['form']['nom']);
+        $form = $this->createFormBuilder($ville)
+            ->add('nom', TextType::class,[
+                'label' => 'Le nom contient'])
+            ->add('Rechercher', SubmitType::class)
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $key = $request->request->all()['form']['nom'];
+
+            $villes =  $villeRepository->findByNom($key);
+            dump($key);
+        }else{
+             $villes = $villeRepository->findAll();
+        }
         return $this->render('ville/index.html.twig', [
-            'villes' => $villeRepository->findAll(),
+            'villes'=> $villes,
+            'form' => $form->createView()
         ]);
     }
 

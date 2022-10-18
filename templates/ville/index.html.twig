@@ -3,26 +3,36 @@
 {% block title %}Ville index{% endblock %}
 
 {% block body %}
-    <h1>Ville index</h1>
+    <h1><center>Gérer les lieux</center></h1><br/><br/><br/>
+    <h2>Filtrer les lieux</h2>
+
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+
                 <th>Nom</th>
                 <th>CodePostal</th>
                 <th>actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for ville in villes %}
             <tr>
-                <td>{{ ville.id }}</td>
+
                 <td>{{ ville.nom }}</td>
                 <td>{{ ville.codePostal }}</td>
                 <td>
-                    <a href="{{ path('app_ville_show', {'id': ville.id}) }}">show</a>
-                    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">edit</a>
+
+                    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">Modifier</a>
+
+                </td>
+                <td>
+                    {{ include('ville/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -33,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_ville_new') }}">Create new</a>
+    <a href="{{ path('app_ville_new') }}"> <h3>Ajouter</h3></a>
 {% endblock %}
