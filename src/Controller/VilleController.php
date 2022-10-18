@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ville;
+use App\Form\RechercheVilleType;
 use App\Form\VilleType;
 use App\Repository\VilleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,14 +20,10 @@ class VilleController extends AbstractController
     public function index(Request $request ,VilleRepository $villeRepository): Response
     {
         $ville = new Ville();
-        $form = $this->createFormBuilder($ville)
-            ->add('nom', TextType::class,[
-                'label' => 'Le nom contient'])
-            ->add('Rechercher', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(RechercheVilleType::class, $ville);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $key = $request->request->all()['form']['nom'];
+            $key = $request->request->all()['recherche_ville']['nom'];
             $villes =  $villeRepository->findByNom($key);
         }else{
              $villes = $villeRepository->findAll();
