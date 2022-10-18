@@ -132,7 +132,7 @@
         width: 31%;
     }
     .header_main {
-        background: linear-gradient(45deg, transparent 31%, #080c50 31%);
+        background: linear-gradient(45deg, transparent 31%, #011f39 31%);
     }
     .banner_section {
         margin-bottom: 230px;
@@ -170,7 +170,7 @@
         border-color: #000;
     }
     .navbar-expand-lg .navbar-nav .nav-link {
-        color: #080c50;
+        color: #011f39;
         padding-bottom: 1px;
         text-align: center;
     }
@@ -295,7 +295,7 @@
         border-color: #000;
     }
     .navbar-expand-lg .navbar-nav .nav-link {
-        color: #080c50;
+        color: #011f39;
         padding-bottom: 1px;
         text-align: center;
     }
@@ -421,7 +421,7 @@
         display: none;
     }
     .navbar-expand-lg .navbar-nav .nav-link {
-        color: #080c50;
+        color: #011f39;
         padding-bottom: 1px;
         text-align: center;
     }

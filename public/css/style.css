@@ -132,6 +132,11 @@ a,
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
 }
+.btn {
+    background-color: #13497e;
+    border-color: #13497e;
+    color: white;
+}
 
 img {
     max-width: 100%;;
@@ -185,6 +190,7 @@ button {
     margin: 0;
     padding: 0;
     cursor: pointer;
+    background-color: #13497e;
 }
 a:hover{
     background-color:#95b258;
@@ -225,7 +231,7 @@ a:hover{
 }
 
 .header_main {
-    background: linear-gradient(45deg, transparent 46%, #080c50 46%);
+    background: linear-gradient(45deg, transparent 46%, #011f39 46%);
 }
 
 .logo {
@@ -957,11 +963,10 @@ textarea#comment::placeholder {
 .footer_section {
     width: 100%;
     float: left;
-    background-color: #171717;
+    background-color: #011f39;
     height: auto;
-    padding-bottom: 50px;
-
-
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
 .footer_logo {
@@ -1034,7 +1039,7 @@ textarea#comment::placeholder {
 .copyright_section {
     width: 100%;
     float: left;
-    background-color: #171717;
+    background-color: #011f39;
     height: auto;
 }
 
@@ -1059,4 +1064,5 @@ textarea#comment::placeholder {
 .margin_top_90 {
     margin-top: 250px;
 }
+
 

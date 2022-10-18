@@ -32,14 +32,23 @@ class SortieType extends AbstractType
                 [
                     'class' => Lieu::class,
                     'choice_label' => 'nom',
-
                 ])
-            ->add('date_enregistrement', DateTimeType::class)
-            ->add('date_ouverture_inscription', DateTimeType::class )
-            ->add('date_fermeture_inscription', DateTimeType::class)
+            ->add('date_enregistrement', DateTimeType::class, [
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text'])
+            ->add('date_ouverture_inscription', DateTimeType::class, [
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text'])
+            ->add('date_fermeture_inscription', DateTimeType::class, [
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text'])
             ->add('isAnnulee')
-            ->add('date_debut_sortie', DateTimeType::class)
-            ->add('date_fin_sortie', DateTimeType::class )
+            ->add('date_debut_sortie', DateTimeType::class, [
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text'])
+            ->add('date_fin_sortie', DateTimeType::class, [
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text'])
 
         ;
 

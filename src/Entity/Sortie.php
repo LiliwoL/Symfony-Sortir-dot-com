@@ -40,26 +40,31 @@ class Sortie
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_enregistrement = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_ouverture_inscription = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_fermeture_inscription = null;
 
     #[ORM\Column]
     private ?bool $isAnnulee = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_debut_sortie = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\DateTime( format : 'Y-m-d H:i')]
+    //#[Assert\DateTime( format : 'Y-m-d H:i')]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $date_fin_sortie = null;
 
     #[ORM\ManyToOne(inversedBy: 'sortie')]
@@ -67,6 +72,7 @@ class Sortie
     private ?Utilisateur $organisateur = null;
 
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class)]
+    //TODO Change it to inscriptions
     private Collection $sortie;
 
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: PhotoSortie::class)]
@@ -75,6 +81,60 @@ class Sortie
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $adresse = null;
+
+    //TODO changer les porter à private + getter et setter
+    private ?string $etat;
+    private ?int $nbInscrit;
+    private ?bool $estInscrit;
+
+    /**
+     * @return string|null
+     */
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param string|null $etat
+     */
+    public function setEtat(?string $etat): void
+    {
+        $this->etat = $etat;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getNbInscrit(): ?int
+    {
+        return $this->nbInscrit;
+    }
+
+    /**
+     * @param int|null $nbInscrit
+     */
+    public function setNbInscrit(?int $nbInscrit): void
+    {
+        $this->nbInscrit = $nbInscrit;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getEstInscrit(): ?bool
+    {
+        return $this->estInscrit;
+    }
+
+    /**
+     * @param bool|null $estInscrit
+     */
+    public function setEstInscrit(?bool $estInscrit): void
+    {
+        $this->estInscrit = $estInscrit;
+    }
+
 
     public function __construct()
     {

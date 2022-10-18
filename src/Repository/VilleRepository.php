@@ -38,6 +38,14 @@ class VilleRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByNom($key){
+        $query = $this->createQueryBuilder('a')
+            ->where('a.nom LIKE :key')
+            ->setParameter('key' , '%'.$key.'%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 
 //    /**
 //     * @return Ville[] Returns an array of Ville objects
@@ -63,4 +71,5 @@ class VilleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

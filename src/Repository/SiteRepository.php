@@ -38,6 +38,14 @@ class SiteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByNom($key){
+        $query = $this->createQueryBuilder('a')
+            ->where('a.nom LIKE :key')
+            ->setParameter('key' , '%'.$key.'%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 
 //    /**
 //     * @return Site[] Returns an array of Site objects

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ville;
+use App\Form\RechercheVilleType;
 use App\Form\VilleType;
 use App\Repository\VilleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,11 +14,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/ville')]
 class VilleController extends AbstractController
 {
-    #[Route('/', name: 'app_ville_index', methods: ['GET'])]
-    public function index(VilleRepository $villeRepository): Response
+    #[Route('/', name: 'app_ville_index', methods: ['GET', 'POST'])]
+    public function index(Request $request ,VilleRepository $villeRepository): Response
     {
+        $ville = new Ville();
+        $form = $this->createForm(RechercheVilleType::class, $ville);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $key = $request->request->all()['recherche_ville']['nom'];
+            $villes =  $villeRepository->findByNom($key);
+        }else{
+             $villes = $villeRepository->findAll();
+        }
         return $this->render('ville/index.html.twig', [
-            'villes' => $villeRepository->findAll(),
+            'villes'=> $villes,
+            'form' => $form->createView()
         ]);
     }
 
