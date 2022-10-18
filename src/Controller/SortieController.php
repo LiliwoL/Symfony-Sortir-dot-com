@@ -6,6 +6,7 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Form\RechercheSortieType;
 use App\Form\SortieType;
+use App\Repository\InscriptionRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,23 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, SortieRepository $sortieRepository): Response
+    public function index(Request $request, SortieRepository $sortieRepository, InscriptionRepository $inscriptionRepository): Response
     {
         $form = $this->createForm(RechercheSortieType::class);
         $form->handleRequest($request);
 
-        // Calcul de l'état de la sortie
-        $dateCourante= new \DateTime();
-        foreach ($sortieRepository->findAll() as $sortie){
-            $sortie->etat='NON VALIDE';
-            if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->etat = 'EN CREATION'; }
-            if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->etat = 'OUVERT'; }
-            if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->etat = 'FERME'; }
-            if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->etat = 'EN COURS'; }
-            if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->etat = 'ARCHIVE'; }
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
+            // Lister les sorties demandées
             $choicesRequest = $form->getData();
             $choices['site'] = $choicesRequest['site'] ?? "";
             $choices['mot_cle'] = $choicesRequest['mot_cle'] ?? "";
@@ -45,6 +36,30 @@ class SortieController extends AbstractController
             $sorties = $sortieRepository->searchSortie($choices);
         } else {
             $sorties = $sortieRepository->findAll();
+        }
+
+        // Calcul de l'état de la sortie
+        foreach ($sorties as $sortie){
+            //Calcul du nombre d'inscrit
+            $sortie->nbInscrit=$inscriptionRepository->count(['sortie'=>$sortie->getId()]);
+            $sortie->estInscrit=false;
+
+            //Utilisateur est-il inscrit ?
+            $userId=$this->getUser()->getId();
+            $sortieId=$sortie->getId();
+
+            if($inscriptionRepository->estInscrit($userId,$sortieId)){
+                $sortie->estInscrit=true;
+            }
+
+            //Determination des états
+            $dateCourante= new \DateTime();
+            $sortie->etat='NON VALIDE';
+            if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->etat = 'EN CREATION'; }
+            if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->etat = 'OUVERT'; }
+            if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->etat = 'FERME'; }
+            if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->etat = 'EN COURS'; }
+            if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->etat = 'ARCHIVE'; }
         }
 
         return $this->render('sortie/index.html.twig', [

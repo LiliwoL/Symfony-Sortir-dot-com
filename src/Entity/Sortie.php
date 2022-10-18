@@ -80,7 +80,59 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $adresse = null;
 
-    public string $etat;
+    //TODO changer les porter à private + getter et setter
+    private ?string $etat;
+    private ?int $nbInscrit;
+    private ?bool $estInscrit;
+
+    /**
+     * @return string|null
+     */
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param string|null $etat
+     */
+    public function setEtat(?string $etat): void
+    {
+        $this->etat = $etat;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getNbInscrit(): ?int
+    {
+        return $this->nbInscrit;
+    }
+
+    /**
+     * @param int|null $nbInscrit
+     */
+    public function setNbInscrit(?int $nbInscrit): void
+    {
+        $this->nbInscrit = $nbInscrit;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getEstInscrit(): ?bool
+    {
+        return $this->estInscrit;
+    }
+
+    /**
+     * @param bool|null $estInscrit
+     */
+    public function setEstInscrit(?bool $estInscrit): void
+    {
+        $this->estInscrit = $estInscrit;
+    }
+
 
     public function __construct()
     {

@@ -48,7 +48,7 @@
                         <ul class="navbar-nav mr-auto">
                             {% if app.user %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">&nbsp;&nbsp; Lieux &nbsp;&nbsp;</a>
+                                <a class="nav-link" href="{{ path('app_ville_index') }}">&nbsp;&nbsp; Villes &nbsp;&nbsp;</a>
                                 </li>
                                 <li class="nav-item">
                                 <a class="nav-link" href="#">&nbsp;&nbsp; Sites &nbsp;&nbsp;</a>
@@ -60,7 +60,8 @@
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                                     <img src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
                                 <ul class="dropdown-menu">
-                                    <table cellpadding="20">
+                                    <li>
+                                    <table class="table">
                                         <tr>
                                             <td><strong>Pseudo</strong></td>
                                             <td>{{ app.user.userIdentifier }}</td>
@@ -82,8 +83,6 @@
                                             <td>{{ app.user.courriel }}</td>
                                         </tr>
                                     </table>
-
-                                    <hr class="dropdown-divider">
                                     </li>
                                     <li class="dropdown-item"> <a href="{{ path('profile_edit') }}">Modifier</a></li>
                                     <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">me déconnecter</a></li>
