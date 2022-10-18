@@ -33,6 +33,7 @@
         {% endblock %}
     </head>
     <body>
+
     <header class="header_section">
         <div class="container-fluid header_main">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -45,7 +46,7 @@
 
                     </button>
                     <div class="collapse navbar-collapse show" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto nav-mr-left">
                             {% if app.user %}
                                 <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_ville_index') }}">&nbsp;&nbsp; Villes &nbsp;&nbsp;</a>
@@ -56,9 +57,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">&nbsp;&nbsp;Accueil&nbsp;&nbsp;</a>
                                 </li>
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown dropstart">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                    <img src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
+                                    <img class="profil" src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                     <table class="table">
@@ -85,7 +86,7 @@
                                     </table>
                                     </li>
                                     <li class="dropdown-item"> <a href="{{ path('profile_edit') }}">Modifier</a></li>
-                                    <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">me déconnecter</a></li>
+                                    <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">Me déconnecter</a></li>
 
 
                                 </ul>
