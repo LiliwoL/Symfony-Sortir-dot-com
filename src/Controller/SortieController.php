@@ -16,6 +16,18 @@ class SortieController extends AbstractController
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
     public function index(SortieRepository $sortieRepository): Response
     {
+        $dateCourante= new \DateTime();
+
+        foreach ($sortieRepository->findAll() as $sortie){
+            $sortie->etat='NON VALIDE';
+            if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->etat = 'EN CREATION'; }
+            if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->etat = 'OUVERT'; }
+            if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->etat = 'FERME'; }
+            if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->etat = 'EN COURS'; }
+            if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->etat = 'ARCHIVE'; }
+
+    }
+
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
         ]);
@@ -27,11 +39,10 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
-        //$etat = $this->container->get('etatService')->calculEtat($sortie);
+
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
 
             $sortieRepository->save($sortie, true);
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
@@ -40,13 +51,21 @@ class SortieController extends AbstractController
         return $this->renderForm('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form,
-           // 'etat' =>$etat,
         ]);
     }
 
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
     public function show(Sortie $sortie): Response
     {
+        $dateCourante= new \DateTime();
+        $sortie->etat='NON VALIDE';
+
+        if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->etat = 'EN CREATION'; }
+        if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->etat = 'OUVERT'; }
+        if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->etat = 'FERME'; }
+        if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->etat = 'EN COURS'; }
+        if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->etat = 'ARCHIVE'; }
+
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
@@ -79,4 +98,7 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 }
