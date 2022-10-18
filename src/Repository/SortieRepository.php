@@ -47,9 +47,7 @@ class SortieRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('s');
         if ($arrayRequest['site'] != "") {
             $query->join('s.organisateur', 'o');
-            $query->join('o.site', 'site');
-            $query->andWhere('o.site = :site_id')->setParameter('site_id', $arrayRequest['site']);;
-            $query->andWhere('s.nom LIKE :mot_cle')->setParameter('mot_cle', '%' . $arrayRequest['mot_cle'] . '%');
+            $query->andWhere('o.site = :site_id')->setParameter('site_id', $arrayRequest['site']);
         }
         if ($arrayRequest['mot_cle'] != "") {
             $query->andWhere('s.nom LIKE :mot_cle')->setParameter('mot_cle', '%' . $arrayRequest['mot_cle'] . '%');
