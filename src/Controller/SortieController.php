@@ -34,10 +34,14 @@ class SortieController extends AbstractController
                     'required' => false
                 ])
                 ->add('date_debut', DateTimeType::class, [
-                    'label' => 'Entre'
+                    'label' => 'Entre',
+                    'date_widget' => 'single_text',
+                    'time_widget' => 'single_text'
                 ])
                 ->add('date_fin', DateTimeType::class, [
-                    'label' => 'Et'
+                    'label' => 'Et',
+                    'date_widget' => 'single_text',
+                    'time_widget' => 'single_text'
                 ])
                 ->add('organisateur', CheckboxType::class, [
                     'required' => false
