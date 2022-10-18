@@ -70,6 +70,7 @@ class Sortie
     private ?Utilisateur $organisateur = null;
 
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class)]
+    //TODO Change it to inscriptions
     private Collection $sortie;
 
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: PhotoSortie::class)]

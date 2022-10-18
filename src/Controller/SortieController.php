@@ -9,7 +9,7 @@ use App\Repository\SortieRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,15 +33,15 @@ class SortieController extends AbstractController
                     'label' => 'Recherché dans le titre',
                     'required' => false
                 ])
-                ->add('date_debut', DateTimeType::class, [
+                ->add('date_debut', DateType::class, [
                     'label' => 'Entre',
-                    'date_widget' => 'single_text',
-                    'time_widget' => 'single_text'
+                    'required' => false,
+                    'widget' => 'single_text'
                 ])
-                ->add('date_fin', DateTimeType::class, [
+                ->add('date_fin', DateType::class, [
                     'label' => 'Et',
-                    'date_widget' => 'single_text',
-                    'time_widget' => 'single_text'
+                    'required' => false,
+                    'widget' => 'single_text'
                 ])
                 ->add('organisateur', CheckboxType::class, [
                     'required' => false
@@ -69,11 +69,22 @@ class SortieController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // TODO Faire le traitement du formulaire
+            $choicesRequest = $request->request->all()['form'];
+            $choices['site'] = $choicesRequest['site'] ?? "";
+            $choices['mot_cle'] = $choicesRequest['mot_cle'] ?? "";
+            $choices['date_debut'] = $choicesRequest['date_debut'] ?? "";
+            $choices['date_fin'] = $choicesRequest['date_fin'] ?? "";
+            $choices['organisateur'] = $choicesRequest['organisateur'] ?? false;
+            $choices['inscrit'] = $choicesRequest['inscrit'] ?? false;
+            $choices['passe'] = $choicesRequest['passe'] ?? false;
+            $choices['user_id'] = $this->getUser();
+            $sorties = $sortieRepository->searchSortie($choices);
+        } else {
+            $sorties = $sortieRepository->findAll();
         }
 
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository->findAll(),
+            'sorties' => $sorties,
             'form' => $form->createView()
         ]);
     }
