@@ -17,6 +17,7 @@
                 <th>Date d'enregistrement</th>
                 <th>Date d'ouverture de l'inscription</th>
                 <th>Date de fermeture de l'inscription</th>
+                <th>Etat</th>
                 <th>Est annulée ?</th>
                 <th>Date debut sortie</th>
                 <th>Date fin sortie</th>
@@ -33,6 +34,7 @@
                 <td>{{ sortie.dateEnregistrement ? sortie.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ sortie.dateOuvertureInscription ? sortie.dateOuvertureInscription|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ sortie.dateFermetureInscription ? sortie.dateFermetureInscription|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sortie.etat }}</td>
                 <td>{{ sortie.isAnnulee ? 'Oui' : 'Non' }}</td>
                 <td>{{ sortie.dateDebutSortie ? sortie.dateDebutSortie|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ sortie.dateFinSortie ? sortie.dateFinSortie|date('Y-m-d H:i:s') : '' }}</td>

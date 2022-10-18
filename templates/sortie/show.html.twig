@@ -40,6 +40,10 @@
                 <td>{{ sortie.dateFermetureInscription ? sortie.dateFermetureInscription|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
+                <th>Etat</th>
+                <td>{{ sortie.etat}}</td>
+            </tr>
+            <tr>
                 <th>Est annulée ?</th>
                 <td>{{ sortie.isAnnulee ? 'Oui' : 'Non' }}</td>
             </tr>

@@ -25,7 +25,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 20, unique: true)]
     #[Assert\Length(
-        min : 2,
+        min : 1,
         max : 20,
         minMessage : 'Votre saisie doit être minimum de {{ limit }} caractères',
         maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
@@ -50,7 +50,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(
-        min : 2,
+        min : 1,
         max : 20,
         minMessage : 'Votre saisie doit être minimum de {{ limit }} caractères ',
         maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
@@ -58,7 +58,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(
-        min : 2,
+        min : 1,
         max : 20,
         minMessage : 'Votre saisie doit être minimum de {{ limit }} caractères' ,
         maxMessage : 'Votre saisie ne doit pas dépasser {{ limit }} caractères' )]
@@ -76,11 +76,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $isActif = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    #[Assert\Length(
-        min : 2,
-        max : 20,
-        minMessage : 'Le nom de fichier doit être minimum de {{ limit }} caractères',
-        maxMessage : 'Le nom de fichier ne doit pas dépasser {{ limit }} caractères' )]
     private ?string $nomPhoto = null;
 
     #[ORM\Column]
