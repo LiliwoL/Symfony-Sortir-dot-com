@@ -4,14 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Site;
 use App\Entity\Sortie;
+use App\Form\RechercheSortieType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,39 +18,7 @@ class SortieController extends AbstractController
     #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
     public function index(Request $request, SortieRepository $sortieRepository): Response
     {
-        $form = $this->createFormBuilder()
-                ->add('site', EntityType::class, [
-                    'class' => Site::class,
-                    'choice_label' => 'nom',
-                    'multiple' => false,
-                    'expanded' => false
-                ])
-                ->add('mot_cle', TextType::class, [
-                    'label' => 'Recherché dans le titre',
-                    'required' => false
-                ])
-                ->add('date_debut', DateType::class, [
-                    'label' => 'Entre',
-                    'required' => false,
-                    'widget' => 'single_text'
-                ])
-                ->add('date_fin', DateType::class, [
-                    'label' => 'Et',
-                    'required' => false,
-                    'widget' => 'single_text'
-                ])
-                ->add('organisateur', CheckboxType::class, [
-                    'required' => false
-                ])
-                ->add('inscrit', CheckboxType::class, [
-                    'required' => false
-                ])
-                ->add('passe', CheckboxType::class, [
-                    'required' => false
-                ])
-                ->add('Rechercher', SubmitType::class)
-                ->getForm();
-
+        $form = $this->createForm(RechercheSortieType::class);
         $form->handleRequest($request);
 
         // Calcul de l'état de la sortie
@@ -69,7 +33,7 @@ class SortieController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $choicesRequest = $request->request->all()['form'];
+            $choicesRequest = $form->getData();
             $choices['site'] = $choicesRequest['site'] ?? "";
             $choices['mot_cle'] = $choicesRequest['mot_cle'] ?? "";
             $choices['date_debut'] = $choicesRequest['date_debut'] ?? "";
