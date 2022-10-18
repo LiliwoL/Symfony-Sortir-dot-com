@@ -63,28 +63,26 @@ class SortieController extends AbstractController
         foreach ($sortieRepository->findAll() as $sortie){
 
             //Calcul du nombre d'inscrit
-            $sortie->nbInscrit=$inscriptionRepository->count(['sortie'=>$sortie->getId()]);
-            $sortie->estInscrit=false;
+            $sortie->setNbInscrit($inscriptionRepository->count(['sortie'=>$sortie->getId()]));
+            $sortie->setEstInscrit(false);
 
             //Utilisateur est-il inscrit ?
             $userId=$this->getUser()->getId();
             $sortieId=$sortie->getId();
-            dump($inscriptionRepository->estInscrit($userId,$sortieId));
-
 
             if($inscriptionRepository->estInscrit($userId,$sortieId)){
-                $sortie->estInscrit=true;
+                $sortie->setEstInscrit(true);
             }
 
             //Determination des états
 
             $dateCourante= new \DateTime();
-            $sortie->etat='NON VALIDE';
-            if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->etat = 'EN CREATION'; }
-            if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->etat = 'OUVERT'; }
-            if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->etat = 'FERME'; }
-            if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->etat = 'EN COURS'; }
-            if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->etat = 'ARCHIVE'; }
+            $sortie->setEtat('NON VALIDE');
+            if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->setEtat('EN CREATION'); }
+            if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
+            if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }
+            if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->setEtat('EN COURS'); }
+            if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
         }
 
         //if ($form->isSubmitted() && $form->isValid()) {
@@ -122,13 +120,13 @@ class SortieController extends AbstractController
     public function show(Sortie $sortie): Response
     {
         $dateCourante= new \DateTime();
-        $sortie->etat='NON VALIDE';
+        $sortie->setEtat('NON VALIDE');
 
-        if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->etat = 'EN CREATION'; }
-        if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->etat = 'OUVERT'; }
-        if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->etat = 'FERME'; }
-        if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->etat = 'EN COURS'; }
-        if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->etat = 'ARCHIVE'; }
+        if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->setEtat('EN CREATION'); }
+        if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
+        if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }
+        if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->setEtat('EN COURS'); }
+        if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
 
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
