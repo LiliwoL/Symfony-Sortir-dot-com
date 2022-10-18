@@ -4,10 +4,7 @@
 
 {% block body %}
     <h1>Edition d'une Sortie</h1>
-
     {{ include('sortie/_form.html.twig', {'button_label': 'Modifier'}) }}
-
-    <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
-
     {{ include('sortie/_delete_form.html.twig') }}
+    <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
 {% endblock %}
