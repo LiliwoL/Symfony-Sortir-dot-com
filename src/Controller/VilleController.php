@@ -19,7 +19,6 @@ class VilleController extends AbstractController
     public function index(Request $request ,VilleRepository $villeRepository): Response
     {
         $ville = new Ville();
-        //dump($request->request->all()['form']['nom']);
         $form = $this->createFormBuilder($ville)
             ->add('nom', TextType::class,[
                 'label' => 'Le nom contient'])
@@ -28,9 +27,7 @@ class VilleController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $key = $request->request->all()['form']['nom'];
-
             $villes =  $villeRepository->findByNom($key);
-            dump($key);
         }else{
              $villes = $villeRepository->findAll();
         }
