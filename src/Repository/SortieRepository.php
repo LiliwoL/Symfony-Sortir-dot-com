@@ -39,20 +39,42 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Sortie[] Returns an array of Sortie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Sortie[] Returns an array of Sortie objects
+     */
+    public function searchSortie($arrayRequest): array
+    {
+        $query = $this->createQueryBuilder('s');
+        if ($arrayRequest['site'] != "") {
+            $query->join('s.organisateur', 'o');
+            $query->join('o.site', 'site');
+            $query->andWhere('o.site = :site_id')->setParameter('site_id', $arrayRequest['site']);;
+            $query->andWhere('s.nom LIKE :mot_cle')->setParameter('mot_cle', '%' . $arrayRequest['mot_cle'] . '%');
+        }
+        if ($arrayRequest['mot_cle'] != "") {
+            $query->andWhere('s.nom LIKE :mot_cle')->setParameter('mot_cle', '%' . $arrayRequest['mot_cle'] . '%');
+        }
+        if ($arrayRequest['date_debut'] != "") {
+            $query->andWhere('s.date_debut_sortie > :date_debut')->setParameter('date_debut', $arrayRequest['date_debut']);
+        }
+        if ($arrayRequest['date_fin'] != "") {
+            $query->andWhere('s.date_debut_sortie < :date_fin')->setParameter('date_fin', $arrayRequest['date_fin']);
+        }
+        if ($arrayRequest['organisateur']) {
+            $query->andWhere('s.organisateur = :organisateur')->setParameter('organisateur', $arrayRequest['user_id']);
+        }
+        if ($arrayRequest['inscrit']) {
+            $query->Leftjoin('s.sortie', 'i');
+            $query->andWhere('i.utilisateur = :inscrit')->setParameter('inscrit', $arrayRequest['user_id']);
+        }
+        if ($arrayRequest['passe']) {
+            $query->andWhere('s.date_fin_sortie < :now')->setParameter('now', new \DateTime());
+        }
+        $query->orderBy('s.date_debut_sortie', 'DESC')
+            ->setMaxResults(10);
+
+        return $query->getQuery()->getResult();
+    }
 
 //    public function findOneBySomeField($value): ?Sortie
 //    {

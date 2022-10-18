@@ -70,6 +70,7 @@ class Sortie
     private ?Utilisateur $organisateur = null;
 
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class)]
+    //TODO Change it to inscriptions
     private Collection $sortie;
 
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: PhotoSortie::class)]
@@ -80,9 +81,58 @@ class Sortie
     private ?Lieu $adresse = null;
 
     //TODO changer les porter à private + getter et setter
-    public string $etat;
-    public int $nbInscrit;
-    public bool $estInscrit;
+    private ?string $etat;
+    private ?int $nbInscrit;
+    private ?bool $estInscrit;
+
+    /**
+     * @return string|null
+     */
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param string|null $etat
+     */
+    public function setEtat(?string $etat): void
+    {
+        $this->etat = $etat;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getNbInscrit(): ?int
+    {
+        return $this->nbInscrit;
+    }
+
+    /**
+     * @param int|null $nbInscrit
+     */
+    public function setNbInscrit(?int $nbInscrit): void
+    {
+        $this->nbInscrit = $nbInscrit;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getEstInscrit(): ?bool
+    {
+        return $this->estInscrit;
+    }
+
+    /**
+     * @param bool|null $estInscrit
+     */
+    public function setEstInscrit(?bool $estInscrit): void
+    {
+        $this->estInscrit = $estInscrit;
+    }
+
 
     public function __construct()
     {
