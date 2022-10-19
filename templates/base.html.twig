@@ -113,7 +113,7 @@
         <main class="about_section layout_padding">
             <div class="container">
                 <div class="row">
-                    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg {{ app.session.flashbag.peek('success')|length > 0 ? '' : 'mb-5' }}"> </nav>
+                    {% include 'alert.html.twig' %}
                     {% block body %}{% endblock %}
                 </div>
             </div>
