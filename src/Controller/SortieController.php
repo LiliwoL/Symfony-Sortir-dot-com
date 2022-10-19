@@ -162,7 +162,7 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/sinscrire', name: 'app_sortie_sinscrire', methods: ['POST'])]
+    #[Route('/{id}/toggleInscription', name: 'app_sortie_sinscrire', methods: ['POST'])]
     public function sinscrire(
         Request $request,
         Sortie $sortie,
@@ -174,9 +174,9 @@ class SortieController extends AbstractController
         $user = $this->getUser();
         $user = $utilisateurRepository->findOneBy(['username' => $user->getUserIdentifier()]);
 
-        $nbInscrit = $inscriptionRepository->count(['id' => $sortie->getId()]);
-        if ($nbInscrit < $sortie->getNbInscriptionMax()) {
-            if ($inscriptionRepository->estInscrit($user->getId(), $sortie->getId()) == null) {
+        $nbInscrit = $inscriptionRepository->count(['sortie' => $sortie->getId()]);
+        if (count($inscriptionRepository->estInscrit($user->getId(), $sortie->getId())) == 0) {
+            if ($nbInscrit < $sortie->getNbInscriptionMax()) {
                 $inscription = new Inscription();
                 $inscription->setSortie($sortie);
                 $inscription->setUtilisateur($user);
@@ -184,10 +184,16 @@ class SortieController extends AbstractController
                 $inscription->setIsParticipant(true);
                 $entityManager->persist($inscription);
                 $entityManager->flush();
-                return new JsonResponse(['added' => true, 'nbInscrit' => $nbInscrit + 1]);
+                return new JsonResponse(['toggle' => true, 'direction' => "add", 'nbInscrit' => $nbInscrit + 1]);
             }
+        } else {
+            $inscription = $inscriptionRepository->findOneBy(['utilisateur' => $user->getId(), 'sortie' => $sortie->getId()]);
+            $entityManager->remove($inscription);
+            $entityManager->flush();
+            return new JsonResponse(['toggle' => true, 'direction' => "remove", 'nbInscrit' => $nbInscrit - 1]);
         }
-        return new JsonResponse(['added'=> false, '$nbInscrit' => $nbInscrit]);
+
+        return new JsonResponse(['toogle' => false, 'nbInscrit' => $nbInscrit]);
     }
 
 }

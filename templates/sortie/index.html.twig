@@ -26,19 +26,27 @@
 
                 let sortie_id = event.target.attributes['data-sortie-id'].value;
 
-                fetch('https://localhost:8000/espace_membre/sortie/' + sortie_id + '/sinscrire', options)
+                fetch('https://localhost:8000/espace_membre/sortie/' + sortie_id + '/toggleInscription', options)
                     .then((r)=>{
                         return r.json();
                     })
                     .then((r)=>{
-                        console.log(r.added);
-                        if (r.added) {
-                            let spanInscrit = document.querySelector('.action_sortie_nb_inscrit[data-sortie-id="' + sortie_id + '"]');
-                            spanInscrit.innerText = r.nbInscrit;
-                            let spanParticipation = document.querySelector('.action_sortie_participation[data-sortie-id="' + sortie_id + '"]');
-                            spanParticipation.innerText = 'Je participe';
-                            spanParticipation.style.color = 'green';
-
+                        if (r.toggle) {
+                            if (r.direction === "add") {
+                                let spanInscrit = document.querySelector('.action_sortie_nb_inscrit[data-sortie-id="' + sortie_id + '"]');
+                                spanInscrit.innerText = r.nbInscrit;
+                                let spanParticipation = document.querySelector('.action_sortie_participation[data-sortie-id="' + sortie_id + '"]');
+                                spanParticipation.innerText = 'Je participe';
+                                spanParticipation.style.color = 'green';
+                                event.target.innerText = "Se désinscrire";
+                            } else if (r.direction === "remove") {
+                                let spanInscrit = document.querySelector('.action_sortie_nb_inscrit[data-sortie-id="' + sortie_id + '"]');
+                                spanInscrit.innerText = r.nbInscrit;
+                                let spanParticipation = document.querySelector('.action_sortie_participation[data-sortie-id="' + sortie_id + '"]');
+                                spanParticipation.innerText = 'Je ne participe pas';
+                                spanParticipation.style.color = 'red';
+                                event.target.innerText = "S'inscrire";
+                            }
                         }
                     });
             })

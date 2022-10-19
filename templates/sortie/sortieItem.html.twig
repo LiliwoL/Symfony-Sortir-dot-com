@@ -13,7 +13,11 @@
 <div class="card" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title">{{ sortie.nom }}</h5>
-        <h6 style="color: red;" class="action_sortie_participation" data-sortie-id="{{ sortie.id }}">{{ sortie.estInscrit ? 'Je participe' : 'Je ne participe pas' }}</h6>
+        {% if sortie.estInscrit %}
+            <h6 style="color: green;" class="action_sortie_participation" data-sortie-id="{{ sortie.id }}">Je participe</h6>
+        {% else %}
+            <h6 style="color: red;" class="action_sortie_participation" data-sortie-id="{{ sortie.id }}">Je ne participe pas</h6>
+        {% endif %}
         <h6 class="card-subtitle mb-2 text-muted">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</h6>
         <h6 class="card-subtitle mb-2 text-muted">
             <span class="action_sortie_nb_inscrit" data-sortie-id="{{ sortie.id }}">{{ sortie.nbInscrit }}</span> / {{ sortie.nbInscriptionMax }}
@@ -22,6 +26,12 @@
         <p>Etat : {{ sortie.etat }}</p>
 
         <p>{{ sortie.isAnnulee ? 'Oui' : 'Non' }}</p>
-        <a href="javascript:void(0);"><span class="action_sortie_sinscrire" data-sortie-id="{{ sortie.id }}">S'inscrire</span></a>
+        <a href="javascript:void(0);"><span class="action_sortie_sinscrire" data-sortie-id="{{ sortie.id }}">
+            {% if sortie.estInscrit %}
+                Se désister
+            {% else %}
+                S'inscrire
+            {% endif %}
+        </span></a>
     </div>
 </div>
