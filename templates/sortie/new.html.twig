@@ -3,9 +3,11 @@
 {% block title %}Nouvelle Sortie{% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle sortie</h1>
+    <h1 class="text-center mb-5">Proposer une nouvelle sortie</h1>
 
-    {{ include('sortie/_form.html.twig') }}
+    <fieldset class="form-group border p-3">
+        {{ include('sortie/_form.html.twig') }}
+    </fieldset>
 
     <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
 {% endblock %}

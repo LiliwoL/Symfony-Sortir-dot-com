@@ -3,30 +3,12 @@
 {% block title %}Hello UtlisateurController!{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+    <h1 class="text-center mb-5">Modification de ses informations</h1>
 
-    <div class="example-wrapper">
-        {% for message in app.flashes('message') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-  {#       {% for erreur in app.flashes('erreur') %}
-            <div class="alert alert-danger" role="alert">
-                {{ erreur }}
-            </div>
-        {% endfor %}#}
-
-        <h1>Modifier les informations de Mon profil</h1>
-
+    <fieldset class="form-group border p-3">
         {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <a class="btn btn-primary" href="{{ path('app_accueil') }}"> Annuler </a>
         {{ form_end(form) }}
+    </fieldset>
 
-        <a href="{{ path('app_forgot_password_request') }}"> Réinitialiser Mon mot de passe </a>
-    </div>
+    <a href="{{ path('app_forgot_password_request') }}" class="btn"> Réinitialiser mon mot de passe </a>
 {% endblock %}

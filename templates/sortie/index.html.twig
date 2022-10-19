@@ -3,11 +3,16 @@
 {% block title %}Sortie index{% endblock %}
 
 {% block body %}
-    <h1>Liste des sorties</h1>
+    <h1 class="text-center mb-5">Liste des sorties</h1>
 
-    {{ form_start(form) }}
+    <fieldset class="form-group border p-3">
 
-    {{ form_end(form) }}
+        <legend class="w-auto px-2">Filter les sorties</legend>
+        {{ form_start(form) }}
+
+        {{ form_end(form) }}
+    </fieldset>
+
 
     {% for sortie in sorties %}
             {% include('sortie/sortieItem.html.twig') %}
