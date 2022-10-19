@@ -28,7 +28,6 @@ class UtilisateurController extends AbstractController
 
         Request                     $request,
         EntityManagerInterface      $entityManager,
-       // UserPasswordEncoderInterface $passwordEncoder,
 
     ): Response
     {
@@ -37,13 +36,15 @@ class UtilisateurController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-        //    $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('message' , 'profil mis à jour');
             return $this->redirect($this->generateUrl('profile_edit'));
-        }
-        //
+            }
+            /*else{
+                    $this->addFlash('erreur','Erreur');
+             }
+        */
         return $this->render('utilisateur/edit.html.twig', [
             'form' => $form->createView()
         ]);
