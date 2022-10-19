@@ -93,6 +93,10 @@ section:nth-child(even) {
         padding: 1px;
         border-radius: 2px;
     }
+
+    .content div {
+        font-size: 0.9em !important;
+    }
 }
 
 @media (min-width: 300px) and (max-width: 399px){
@@ -112,6 +116,10 @@ section:nth-child(even) {
         margin: 1px;
         padding: 1px;
         border-radius: 2px;
+    }
+
+    .content div {
+        font-size: 1.2em !important;
     }
 
 }
@@ -134,6 +142,10 @@ section:nth-child(even) {
         padding: 2px;
         border-radius: 5px;
     }
+
+    .content div {
+        font-size: 1.4em !important;
+    }
 }
 
 @media (min-width: 500px) and (max-width: 599px) {
@@ -153,6 +165,10 @@ section:nth-child(even) {
         margin: 3px;
         padding: 3px;
         border-radius: 7px;
+    }
+
+    .content div {
+        font-size: 1.2em !important;
     }
 }
 
@@ -174,6 +190,10 @@ section:nth-child(even) {
         padding: 3px;
         border-radius: 7px;
     }
+
+    .content div {
+        font-size: 1.3em !important;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 999px) {
@@ -189,6 +209,10 @@ section:nth-child(even) {
         margin: 4px;
         padding: 4px;
         border-radius: 10px;
+    }
+
+    .content div {
+        font-size: 1.4em !important;
     }
 }
 
@@ -206,6 +230,10 @@ section:nth-child(even) {
         padding: 5px;
         border-radius: 10px;
     }
+
+    .content div {
+        font-size: 1.6em !important;
+    }
 }
 
 @media (min-width: 1080px) and (max-width: 1439px) {
@@ -221,6 +249,10 @@ section:nth-child(even) {
         margin: 7px;
         padding: 10px;
         border-radius: 10px;
+    }
+
+    .content div {
+        font-size: 1.7em !important;
     }
 }
 
@@ -238,6 +270,10 @@ section:nth-child(even) {
         padding: 10px;
         border-radius: 7px;
     }
+
+    .content div {
+        font-size: 1.9em !important;
+    }
 }
 
 @media (min-width: 1920px) {
@@ -253,6 +289,11 @@ section:nth-child(even) {
         margin: 10px;
         padding: 10px;
         border-radius: 10px;
+    }
+
+
+    .content div {
+        font-size: 2.1em !important;
     }
 }
 
