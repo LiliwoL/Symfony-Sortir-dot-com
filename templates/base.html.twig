@@ -147,5 +147,16 @@
             </div>
         </div>
     {% endif %}
-
+    <script>
+        function toggleDisplay(item) {
+            let form = document.getElementsByTagName("form")[0];
+            if (form.style.display === "none") {
+                form.style.display = "block";
+                item.firstElementChild.innerHTML = "&#9650";
+            } else {
+                form.style.display = "none";
+                item.firstElementChild.innerHTML = "&#9660";
+            }
+        }
+    </script>
 </html>
