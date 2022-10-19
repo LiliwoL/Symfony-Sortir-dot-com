@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Form\ModifierProfilType;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +17,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class UtilisateurController extends AbstractController
 {
     #[Route('/espace_membre/utilisateur', name: 'app_utlisateur')]
-    public function index(): Response
+    public function index(
+        UtilisateurRepository $utilisateurRepository
+    ): Response
     {
         return $this->render('utilisateur/index.html.twig', [
-            'controller_name' => 'UtilisateurController',
+            'utilisateurs' => $utilisateurRepository->findBy(['isActif' => true]),
         ]);
     }
 
