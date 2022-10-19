@@ -29,7 +29,7 @@ VALUES
 (5, 'ENI Campus Quimper','2, rue Georges Perros',47.97711944580078, -4.083467960357666),
 (6, 'ENI Campus Niort', '19 avenue Léo Lagrange', 46.31629943847656, -0.4703825116157532 ),
 (1, 'Lieu Unique','2 Rue de la Biscuiterie', 47.215084075927734, -1.5454285144805908),
-(7, 'Roazhon Park','111 Rue de Lorient',48.10929870605469,-1.7080506086349487 );
+(3, 'Roazhon Park','111 Rue de Lorient',48.10929870605469,-1.7080506086349487 );
 /*(3, 'Eni Compus Nantes FRANKLIN','r Benjamin Franklin,',48.10929870605469,-1.7080506086349487 );*/
 
 /* Jeux de données site */
