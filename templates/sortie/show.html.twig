@@ -69,7 +69,6 @@
                     <th>Adresse</th>
                     <td id="adresse">
                         {{ sortie.adresse.rue }} {{ sortie.adresse.ville.codePostal }} {{ sortie.adresse.ville.nom }}
-                        | <a href="javascript:void(0);" onClick="goToAdresse()">Recentrer la carte</a>
                         <span style="visibility: hidden;">
                             <span id="adresse_latitude">{{ sortie.adresse.latitude }}</span>
                             <span id="adresse_longitude">{{ sortie.adresse.longitude }}</span>
@@ -82,6 +81,7 @@
 
     <div class="droite">
         <div id="map" style="height: 500px;"></div>
+        <a href="javascript:void(0);" onClick="goToAdresse()">Recentrer la carte sur l'adresse de la sortie</a>
     </div>
 
     {% block stylesheets %}
