@@ -85,6 +85,7 @@ class Sortie
     private ?string $etat;
     private ?int $nbInscrit;
     private ?bool $estInscrit;
+    private ?\DateInterval $duree;
 
     /**
      * @return string|null
@@ -134,6 +135,21 @@ class Sortie
         $this->estInscrit = $estInscrit;
     }
 
+    /**
+     * @return bool|null
+     */
+    public function getDuree(): ?\DateInterval
+    {
+        return $this->duree;
+    }
+
+    /**
+     * @param bool|null $duree
+     */
+    public function setDuree(?\DateInterval $duree): void
+    {
+        $this->duree = $duree;
+    }
 
     public function __construct()
     {

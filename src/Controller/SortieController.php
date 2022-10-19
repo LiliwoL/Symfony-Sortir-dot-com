@@ -52,6 +52,10 @@ class SortieController extends AbstractController
             $userId=$this->getUser()->getId();
             $sortieId=$sortie->getId();
 
+            //Durée de la sortie
+            $duree = date_diff($sortie->getDateFinSortie(), $sortie->getDateDebutSortie());
+            $sortie->setDuree($duree);
+
             if($inscriptionRepository->estInscrit($userId,$sortieId)){
                 $sortie->setEstInscrit(true);
             }
