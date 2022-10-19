@@ -18,6 +18,8 @@
         <h1>Modifier les informations de son profil</h1>
 
         {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <a class="btn btn-primary" href="{{ path('app_accueil') }}"> Annuler </a>
         {{ form_end(form) }}
 
         <a href="{{ path('app_forgot_password_request') }}"> Réinitialiser son mot de passe </a>

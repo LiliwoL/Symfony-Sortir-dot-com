@@ -2,12 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Form\RechercheSortieType;
 use App\Form\SortieType;
+use App\Form\LieuType;
 use App\Repository\InscriptionRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
+use ContainerBrDpjYB\getLieuRepositoryService;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,6 +61,7 @@ class SortieController extends AbstractController
             //Determination des états
             $dateCourante= new \DateTime();
             $sortie->setEtat('NON VALIDE');
+            //TODO A Factoriser
             if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->setEtat('EN CREATION'); }
             if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
             if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }
@@ -72,20 +79,45 @@ class SortieController extends AbstractController
     public function new(Request $request, SortieRepository $sortieRepository): Response
     {
         $sortie = new Sortie();
-        $form = $this->createForm(SortieType::class, $sortie);
-        $form->handleRequest($request);
+        $lieu= new Lieu();
+
+        $formSortie = $this->createForm(SortieType::class, $sortie);
+        $formSortie->handleRequest($request);
 
 
+        if ($formSortie->isSubmitted() && $formSortie->isValid()) {
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            $sortie = $formSortie->getData();
+
+            $datedebut = $formSortie['date_debut_sortie']->getData();
+            $sortie->setDateDebutSortie($datedebut);
+
+            $datefin = $formSortie['date_fin_sortie']->getData();
+            $sortie->setDateFinSortie($datefin);
+
+
+            if( $formSortie->get('Enregistrer')->isClicked()){
+                $sortie->setEtat("EN CREATION");
+            }elseif( $formSortie->get('Publier')->isClicked()){
+                $sortie->setEtat("OUVERT");
+
+            }else{
+                return $this->redirectToRoute('app_sortie_index');
+            }
+
+            $sortie->setOrganisateur($this->getUser());
+
+            $this->addFlash('success', 'La sortie a été ajoutée !');
 
             $sortieRepository->save($sortie, true);
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
+
         return $this->renderForm('sortie/new.html.twig', [
             'sortie' => $sortie,
-            'form' => $form,
+            'form' => $formSortie,
+
         ]);
     }
 
@@ -94,7 +126,7 @@ class SortieController extends AbstractController
     {
         $dateCourante= new \DateTime();
         $sortie->setEtat('NON VALIDE');
-
+        //TODO A factoriser
         if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->setEtat('EN CREATION'); }
         if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
         if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }

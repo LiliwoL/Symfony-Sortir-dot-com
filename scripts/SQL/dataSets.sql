@@ -24,21 +24,23 @@ VALUES
 
 INSERT INTO lieu (ville_id, nom, rue, latitude, longitude)
 VALUES
-(2, 'ENI Campus Nantes', '3 rue Mickael FARADAY', 47.225433349609375, -1.6185470819473267),
+(2, 'ENI Campus Nantes FARADAY', '3 rue Mickael FARADAY', 47.225433349609375, -1.6185470819473267),
 (4, 'ENI Campus Rennes', 'ZAC de La Conterie, 8 Rue Léo Lagrange',48.039398193359375, -1.6918691396713257 ) ,
 (5, 'ENI Campus Quimper','2, rue Georges Perros',47.97711944580078, -4.083467960357666),
 (6, 'ENI Campus Niort', '19 avenue Léo Lagrange', 46.31629943847656, -0.4703825116157532 ),
 (1, 'Lieu Unique','2 Rue de la Biscuiterie', 47.215084075927734, -1.5454285144805908),
-(3, 'Roazhon Park','111 Rue de Lorient',48.10929870605469,-1.7080506086349487 );
+(7, 'Roazhon Park','111 Rue de Lorient',48.10929870605469,-1.7080506086349487 );
+/*(3, 'Eni Compus Nantes FRANKLIN','r Benjamin Franklin,',48.10929870605469,-1.7080506086349487 );*/
 
 /* Jeux de données site */
 
 INSERT INTO site (localisation_id, nom)
 VALUES
-(2, 'ENI Campus Nantes'),
-(4 ,'ENI Campus Rennes'),
-(5 ,'ENI Campus Quimper'),
-(6 , 'ENI Campus Niort');
+(2, ' Nantes Faraday'),
+/*(3, ' Nantes Franklin'),*/
+(4 ,'Rennes'),
+(5 ,'Quimper'),
+(6 , 'Niort');
 
 /* Jeux de données utilisateur*/
 

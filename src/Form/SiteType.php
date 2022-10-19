@@ -15,7 +15,11 @@ class SiteType extends AbstractType
     {
         $builder
             ->add('nom')
-         //   ->add('localisation')
+            ->add('localisation' , EntityType::class ,[
+                'class' => Lieu::class,
+                'choice_label' => 'nom',
+
+                ])
         ;
     }
 

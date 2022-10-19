@@ -16,8 +16,7 @@
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>actions</th>
-                <th></th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,10 +24,10 @@
             <tr>
                 <td>{{ site.nom }}</td>
                 <td>
-                    <a href="{{ path('app_site_edit', {'id': site.id}) }}">Modifier</a>
-                </td>
-                <td>
+                    <div class="div-actions">
+                    <a class="btn" href="{{ path('app_site_edit', {'id': site.id}) }}">Modifier </a>
                     {{ include('site/_delete_form.html.twig') }}
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -39,6 +38,6 @@
         </tbody>
     </table>
     </div>
-    <a href="{{ path('app_site_new') }}"><h1>Ajouter</h1></a>
+    <a class="btn" href="{{ path('app_site_new') }}">Ajouter</a>
 
 {% endblock %}
