@@ -1091,16 +1091,16 @@ textarea#comment::placeholder {
 .banniere {
     border : solid 2px #95b258 ;
     background-color: rgb(0,0,0,0.911);
-    position: fixed;
+    position: sticky;
     bottom: 0 ;
     left : 0;
+    z-index: 10;
     width : 100%;
     color : white;
     display: flex;
     justify-content: space-around;
     padding: 30px ;
     font-family: 'Spinnaker', sans-serif;
-    margin-bottom: 30px;
 }
 .banniere-texte p {
     font-size: large;

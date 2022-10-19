@@ -121,31 +121,30 @@
         <!-- about section end -->
     </body>
 
-        <!-- footer section start -->
-        <footer class="footer_section layout_padding">
-            <!-- Cookies -->
-            {% if app.request.cookies.get('accept_cookie') %}
-                <p class="cookie-text">Cookies are set!</p>
-            {% else %}
-                <div class="banniere">
-                    <div class="banniere-texte">
-                        <p> Notre site utilise des cookies pour une meilleur expérience </p>
-                    </div>
-                    <div class="button-banniere">
-                        <a href="{{  path('app_accept_cookie') }}"> OK, j'accepte </a>
-                    </div>
-                </div>
-            {% endif %}
-            <!-- copyright section start -->
-            <div class="copyright_section">
-                <div class="container">
-                    <p class="copyright_text">
-                        Site&nbsp;de&nbsp;réseau&nbsp;social produit&nbsp;par le&nbsp;groupe <strong>Alexandre&nbsp;Luc&nbsp;Manel</strong><br><br>
-                        Projet&nbsp;de&nbsp;groupe durant&nbsp;la&nbsp;formation à&nbsp;l'<strong>&nbsp;ENI&nbsp;2022-23</strong>
-                    </p>
-                </div>
+    <!-- footer section start -->
+    <footer class="footer_section layout_padding">
+        <!-- copyright section start -->
+        <div class="copyright_section">
+            <div class="container">
+                <p class="copyright_text">
+                    Site&nbsp;de&nbsp;réseau&nbsp;social produit&nbsp;par le&nbsp;groupe <strong>Alexandre&nbsp;Luc&nbsp;Manel</strong><br><br>
+                    Projet&nbsp;de&nbsp;groupe durant&nbsp;la&nbsp;formation à&nbsp;l'<strong>&nbsp;ENI&nbsp;2022-23</strong>
+                </p>
             </div>
-            <!-- footer section end -->
-        </footer>
+        </div>
+        <!-- footer section end -->
+    </footer>
+
+    <!-- Cookies -->
+    {% if not app.request.cookies.get('accept_cookie') %}
+        <div class="banniere">
+            <div class="banniere-texte">
+                <p> Notre site utilise des cookies pour une meilleur expérience </p>
+            </div>
+            <div class="button-banniere">
+                <a href="{{  path('app_accept_cookie') }}">J'accepte</a>
+            </div>
+        </div>
+    {% endif %}
 
 </html>
