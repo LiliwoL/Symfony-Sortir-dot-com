@@ -70,9 +70,12 @@ class SortieController extends AbstractController
             if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
         }
 
+        $SchemeAndHttpHost = $request->getSchemeAndHttpHost();
+
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sorties,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'SchemeAndHttpHost' => $SchemeAndHttpHost
         ]);
     }
 
