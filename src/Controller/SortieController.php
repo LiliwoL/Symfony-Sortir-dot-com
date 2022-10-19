@@ -2,19 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Inscription;
 use App\Entity\Lieu;
-use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Form\RechercheSortieType;
 use App\Form\SortieType;
-use App\Form\LieuType;
 use App\Repository\InscriptionRepository;
-use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
-use App\Repository\VilleRepository;
-use ContainerBrDpjYB\getLieuRepositoryService;
-use Doctrine\ORM\EntityManager;
+use App\Repository\UtilisateurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,7 +59,6 @@ class SortieController extends AbstractController
             //Determination des états
             $dateCourante= new \DateTime();
             $sortie->setEtat('NON VALIDE');
-            //TODO A Factoriser
             if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->setEtat('EN CREATION'); }
             if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
             if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }
@@ -112,7 +109,6 @@ class SortieController extends AbstractController
             $sortieRepository->save($sortie, true);
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
-
 
         return $this->renderForm('sortie/new.html.twig', [
             'sortie' => $sortie,
@@ -166,6 +162,32 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Route('/{id}/sinscrire', name: 'app_sortie_sinscrire', methods: ['GET'])]
+    public function sinscrire(
+        Request $request,
+        Sortie $sortie,
+        InscriptionRepository $inscriptionRepository,
+        UtilisateurRepository $utilisateurRepository,
+        EntityManagerInterface $entityManager
+    )
+    {
+        $user = $this->getUser();
+        $user = $utilisateurRepository->findOneBy(['username' => $user->getUserIdentifier()]);
 
+        $nbInscrit = $inscriptionRepository->count(['id' => $sortie->getId()]);
+        if ($nbInscrit < $sortie->getNbInscriptionMax()) {
+            if ($inscriptionRepository->estInscrit($user->getId(), $sortie->getId()) == null) {
+                $inscription = new Inscription();
+                $inscription->setSortie($sortie);
+                $inscription->setUtilisateur($user);
+                $inscription->setDateInscription(new \DateTime("now"));
+                $inscription->setIsParticipant(true);
+                $entityManager->persist($inscription);
+                $entityManager->flush();
+                return new JsonResponse(['added' => true, 'nbInscrit' => $nbInscrit + 1]);
+            }
+        }
+        return new JsonResponse(['added'=> false, '$nbInscrit' => $nbInscrit]);
+    }
 
 }
