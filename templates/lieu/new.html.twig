@@ -8,7 +8,7 @@
     {{ include('lieu/_form.html.twig') }}
 
     {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_ville_new') }}">Ajouter une ville</a>
+    <a href="{{ path('app_ville_new') }}" class="btn">Ajouter une ville</a>
     {% endif %}
 
     <div>Vérifier que la localisation sur la carte correspond bien à l'adresse rentrée.</div>

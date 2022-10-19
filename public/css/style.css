@@ -137,6 +137,7 @@ a,
     border-color: #13497e;
     color: white;
     margin: 5px;
+    width: fit-content !important;
 }
 
 .div-actions {

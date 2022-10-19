@@ -6,7 +6,7 @@
     <h1>Sortie</h1>
 
     {% if app.user().id == sortie.organisateur.id %}
-        <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">Modifier</a>
+        <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}" class="btn">Modifier</a>
         {{ include('sortie/_delete_form.html.twig') }}
     {% endif %}
 
