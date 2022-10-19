@@ -162,7 +162,7 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/sinscrire', name: 'app_sortie_sinscrire', methods: ['GET'])]
+    #[Route('/{id}/sinscrire', name: 'app_sortie_sinscrire', methods: ['POST'])]
     public function sinscrire(
         Request $request,
         Sortie $sortie,
