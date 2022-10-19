@@ -66,7 +66,14 @@
             </tr>
             <tr>
                 <th>Adresse</th>
-                <td id="adresse">{{ sortie.adresse.rue }} {{ sortie.adresse.ville.codePostal }} {{ sortie.adresse.ville.nom }}</td>
+                <td id="adresse">
+                    {{ sortie.adresse.rue }} {{ sortie.adresse.ville.codePostal }} {{ sortie.adresse.ville.nom }}
+                    | <a href="javascript:void(0);" onClick="goToAdresse()">Recentrer la carte</a>
+                    <span style="visibility: hidden;">
+                        <span id="adresse_latitude">{{ sortie.adresse.latitude }}</span>
+                        <span id="adresse_longitude">{{ sortie.adresse.longitude }}</span>
+                    </span>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -108,6 +115,14 @@
         }
 
         showLieu({{ sortie.adresse.latitude }}, {{ sortie.adresse.longitude }});
+
+        function goToAdresse() {
+            showLieu(
+                document.getElementById("adresse_latitude").innerHTML,
+                document.getElementById("adresse_longitude").innerHTML
+            )
+        }
+
     </script>
 
     <h2>Participants</h2>
