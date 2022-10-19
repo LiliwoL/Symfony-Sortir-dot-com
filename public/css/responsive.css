@@ -8,7 +8,7 @@
         padding: 15px 1px;
     }
 
-    .card_sortie {
+    .card_liste {
         width: 50%;
     }
 }
@@ -84,7 +84,7 @@
         padding: 30px 1px;
     }
 
-    .card_sortie {
+    .card_liste {
         width: 50%;
     }
 }
@@ -134,7 +134,7 @@
         top: 0;
     }
 
-    .card_sortie {
+    .card_liste {
         width: 100%;
     }
 }
@@ -172,7 +172,7 @@
         left: -300px;
     }
 
-    .card_sortie {
+    .card_liste {
         width: 33%;
     }
 }
@@ -301,7 +301,7 @@
         left: -190px;
     }
 
-    .card_sortie {
+    .card_liste {
         width: 50%;
     }
 }
@@ -428,7 +428,7 @@
         left: -370px;
     }
 
-    .card_sortie {
+    .card_liste {
         width: 50%;
     }
 }
@@ -545,19 +545,19 @@
         padding-top: 60px;
     }
 
-    .card_sortie {
+    .card_liste {
         width: 100%;
     }
 }
 
 @media (min-width: 1199px) and (max-width: 1920px) {
-    .card_sortie {
+    .card_liste {
         width: 25%;
     }
 }
 
 @media (min-width: 1921px) {
-    .card_sortie {
+    .card_liste {
         width: 20%;
     }
 }

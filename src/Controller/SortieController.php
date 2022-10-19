@@ -125,7 +125,11 @@ class SortieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
-    public function show(Sortie $sortie): Response
+    public function show(
+        Sortie $sortie,
+        InscriptionRepository $inscriptionRepository,
+        UtilisateurRepository $utilisateurRepository
+    ): Response
     {
         $dateCourante= new \DateTime();
         $sortie->setEtat('NON VALIDE');
@@ -136,8 +140,14 @@ class SortieController extends AbstractController
         if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->setEtat('EN COURS'); }
         if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
 
+        $inscriptions = $inscriptionRepository->findBy(['sortie' => $sortie]);
+        foreach ($inscriptions as $inscription) {
+            $inscrits[] = $utilisateurRepository->findOneBy(['id' => $inscription->getUtilisateur()]);
+        }
+
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
+            'inscrits' => $inscrits
         ]);
     }
 

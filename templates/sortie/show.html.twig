@@ -5,6 +5,11 @@
 {% block body %}
     <h1>Sortie</h1>
 
+    {% if app.user().id == sortie.organisateur.id %}
+        <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">Modifier</a>
+        {{ include('sortie/_delete_form.html.twig') }}
+    {% endif %}
+
     <table class="table">
         <tbody>
             <tr>
@@ -103,29 +108,11 @@
         }
 
         showLieu({{ sortie.adresse.latitude }}, {{ sortie.adresse.longitude }});
-        /*
-        document.getElementById("adresse").addEventListener('click', (event) =>{
-            let adresse = event.target.innerText;
-            // CORS security
-            let headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            headers.append('X-Requested-With', 'XMLHttpRequest');
-            fetch("https://api-adresse.data.gouv.fr/search/?q=" + adresse,{
-                method: 'GET',
-                headers: headers
-            })
-                .then(r=>r.json())
-                .then(r=>{
-                    let coords=r.features[0].geometry.coordinates;
-                    showLieu(coords[1], coords[0]);
-                })
-        })
-        */
     </script>
 
-    <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
+    <h2>Participants</h2>
+    {% for utilisateur in inscrits %}
+        {% include 'utilisateur/utilisateurItem.html.twig' %}
+    {% endfor %}
 
-    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">Modifier</a>
-
-    {{ include('sortie/_delete_form.html.twig') }}
 {% endblock %}
