@@ -19,16 +19,10 @@ class SortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $timezone=new \DateTimeZone('Europe/Paris');
         $builder
             ->add('nom', TextType::class)
             ->add('description', TextType::Class)
-            //->add('organisateur', EntityType::Class,
-            //    [
-            //       'class' => Utilisateur::class,
-            //        'choice_label' => 'username',
-            //        'mapped'=> true,
-            //        'multiple' => false,
-            //    ])
             ->add('nbInscriptionMax', TextType::Class)
             ->add('adresse', EntityType::class,
                 [
@@ -36,13 +30,15 @@ class SortieType extends AbstractType
                     'label' => 'Lieux de sortie',
                     'choice_label' => 'nom',
                 ])
-            ->add('date_enregistrement', DateTimeType::class, [
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text'])
+            //->add('date_enregistrement', DateTimeType::class, [
+            //    'date_widget' => 'single_text',
+            //    'time_widget' => 'single_text'])
             ->add('date_ouverture_inscription', DateTimeType::class, [
+                'data' => new \DateTime(' now ', $timezone),
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text'])
             ->add('date_fermeture_inscription', DateTimeType::class, [
+                'data' => new \DateTime('now + 7 days', $timezone),
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text'])
             ->add('isAnnulee')
