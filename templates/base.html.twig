@@ -55,6 +55,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('app_accueil') }}">&nbsp;&nbsp; Accueil &nbsp;&nbsp;</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_utlisateur') }}">&nbsp;&nbsp; utilisateurs &nbsp;&nbsp;</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_sortie_new') }}">&nbsp;&nbsp; Creer sortie &nbsp;&nbsp;</a>
+                                </li>
                             {% endif%}
                             {% if is_granted("ROLE_ADMIN") %}
                                 <li class="nav-item">
