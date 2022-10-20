@@ -46,11 +46,11 @@ VALUES
 
 INSERT INTO utilisateur (username,site_id,roles, password, courriel, is_verified, nom, prenom, telephone, is_actif, nom_photo, is_cgu_accepte)
 VALUES
-( 'aa',1,'["ROLE_ADMIN"]','$2y$13$zf.lPO/7uA0va9nYld2vteQeqwRE496OHHzsLnshokjLFd6Vtst/.', 'a@a.com', true, 'AUVERGNAT', 'Aurélie','0666666666', true,'aa.jpg',true),
-( 'bb',1,'[]','$2y$13$H3mjdb1K154e2KAkdGg0Mu0Jk7rwnIOSTKTs97fBn3xwFK2l2v/Dq', 'b@b.com', true, 'BALVERT', 'Bernard','0666666666',true,'bb.svg',true),
-( 'cc',1,'[]','$2y$13$nJDksGsidC0hlWzDGP3vlesrsnRJXXAPXIjw7ZAS4f8Ypx1b5em5u', 'c@c.com', true, 'COWNELL', 'Caroline','0666666666',true,'cc.svg',true),
-( 'dd',1,'[]','$2y$13$h3VDj2zpJ6W1oQJ5Ka2gXe54RAfHz1xc7JYJ1wSMnm4FN872PbdnO', 'd@d.com', true, 'DARWIN', 'David','0666666666',true,'dd.svg',true),
-( 'ee',1,'[]','$2y$13$TT2oaY6E4VcuxjXqumOr0.wuxwoqW7qxHCpdN5Pl6ZO6L9j586e5y', 'e@e.com', true, 'EPSILON', 'Eloise','0666666666',true,'ee.svg',true);
+( 'aa',1,'["ROLE_ADMIN"]','$2y$13$zf.lPO/7uA0va9nYld2vteQeqwRE496OHHzsLnshokjLFd6Vtst/.', 'a@a.com', true, 'AUVERGNAT', 'Aurélie','0666666666', true,'1.jpg',true),
+( 'bb',1,'[]','$2y$13$H3mjdb1K154e2KAkdGg0Mu0Jk7rwnIOSTKTs97fBn3xwFK2l2v/Dq', 'b@b.com', true, 'BALVERT', 'Bernard','0666666666',true,'2.jpg',true),
+( 'cc',1,'[]','$2y$13$nJDksGsidC0hlWzDGP3vlesrsnRJXXAPXIjw7ZAS4f8Ypx1b5em5u', 'c@c.com', true, 'COWNELL', 'Caroline','0666666666',true,'3.jpg',true),
+( 'dd',1,'[]','$2y$13$h3VDj2zpJ6W1oQJ5Ka2gXe54RAfHz1xc7JYJ1wSMnm4FN872PbdnO', 'd@d.com', true, 'DARWIN', 'David','0666666666',true,'4.jpg',true),
+( 'ee',1,'[]','$2y$13$TT2oaY6E4VcuxjXqumOr0.wuxwoqW7qxHCpdN5Pl6ZO6L9j586e5y', 'e@e.com', true, 'EPSILON', 'Eloise','0666666666',true,'5.png',true);
 
 /* Jeux de données de sortie*/
 
