@@ -20,51 +20,66 @@ class Sortie
 
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank (message: "Merci de saisir un nom de sortie")]
     #[Assert\Length(
-        min : 3,
         max : 50,
-        minMessage : "Un effort dans votre, vous devez ajoutez au moins {{ limit }} caractères ",
         maxMessage : "Votre saisie ne doit pas dépasser {{limit}} caractères" )]
     private ?string $nom = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank (message: "Merci de saisir le nombre de places disponible")]
     private ?int $nbInscriptionMax = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message: "Un petit effort, 2 ou 3 mots suffise")]
     #[Assert\Length(
-        min : 5 ,
         max : 255,
-        minMessage : "Un effort dans la saisie, vous devez ajoutez au moins {{ limit }} caractères ",
         maxMessage : "Votre saisie ne doit pas dépasser {{ limit }} caractères" )]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     //#[Assert\DateTime( format : 'Y-m-d H:i')]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $date_enregistrement = null;
+    #[Assert\Type("\DateTime")]
+    private ?\DateTime $date_enregistrement = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     //#[Assert\DateTime( format : 'Y-m-d H:i')]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $date_ouverture_inscription = null;
+    #[Assert\Type("\DateTime")]
+    #[Assert\GreaterThan(
+        propertyPath:'date_enregistrement',
+        message: 'La date saisie ne peut pas être inférieure à {{ compared_value }}'
+    )]
+    private ?\DateTime $date_ouverture_inscription = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     //#[Assert\DateTime( format : 'Y-m-d H:i')]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $date_fermeture_inscription = null;
+    #[Assert\Type("\DateTime")]
+    #[Assert\GreaterThan(
+        propertyPath:'date_ouverture_inscription',
+        message: 'La date saisie ne peut pas être inférieure à {{ compared_value }}'
+    )]
+    private ?\DateTime $date_fermeture_inscription = null;
 
     #[ORM\Column]
     private ?bool $isAnnulee = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     //#[Assert\DateTime( format : 'Y-m-d H:i')]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $date_debut_sortie = null;
+    #[Assert\Type("\DateTime")]
+    #[Assert\GreaterThan(
+        propertyPath:'date_fermeture_inscription',
+        message: 'La date saisie ne peut pas être inférieure à {{ compared_value }}'
+    )]
+    private ?\DateTime $date_debut_sortie = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     //#[Assert\DateTime( format : 'Y-m-d H:i')]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $date_fin_sortie = null;
+    #[Assert\Type("\DateTime")]
+    #[Assert\GreaterThan(
+        propertyPath:'date_debut_sortie',
+        message:'La date saisie ne peut pas être inférieure à {{ compared_value }}'
+    )]
+    private ?\DateTime $date_fin_sortie = null;
 
     #[ORM\ManyToOne(inversedBy: 'sortie')]
     #[ORM\JoinColumn(nullable: false)]
@@ -81,7 +96,7 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $adresse = null;
 
-    //TODO changer les porter à private + getter et setter
+    //Field non mappé avec la base de données
     private ?string $etat;
     private ?int $nbInscrit;
     private ?bool $estInscrit;
@@ -101,6 +116,19 @@ class Sortie
     public function setEtat(?string $etat): void
     {
         $this->etat = $etat;
+    }
+
+    /**
+     * @param \dateTime $dateTime
+     */
+
+    public function calculEtat(\dateTime $dateTime): void
+    {
+        if ( $this->getDateEnregistrement() <= $dateTime || $this->getDateOuvertureInscription() == null){ $this->setEtat('EN CREATION'); }
+        if ( $this->getDateOuvertureInscription() !== null && $this->getDateOuvertureInscription() <= $dateTime){ $this->setEtat('OUVERT'); }
+        if ( $this->getDateFermetureInscription() <= $dateTime){ $this->setEtat('FERME'); }
+        if ( $this->getDateDebutSortie() <= $dateTime){ $this->setEtat('EN COURS'); }
+        if ( $this->getDateFinSortie() <= $dateTime){ $this->setEtat('ARCHIVE'); }
     }
 
     /**
@@ -198,36 +226,36 @@ class Sortie
         return $this;
     }
 
-    public function getDateEnregistrement(): ?\DateTimeInterface
+    public function getDateEnregistrement(): ?\DateTime
     {
         return $this->date_enregistrement;
     }
 
-    public function setDateEnregistrement(\DateTimeInterface $date_enregistrement): self
+    public function setDateEnregistrement(\DateTime $date_enregistrement): self
     {
         $this->date_enregistrement = $date_enregistrement;
 
         return $this;
     }
 
-    public function getDateOuvertureInscription(): ?\DateTimeInterface
+    public function getDateOuvertureInscription(): ?\DateTime
     {
         return $this->date_ouverture_inscription;
     }
 
-    public function setDateOuvertureInscription(\DateTimeInterface $date_ouverture_inscription): self
+    public function setDateOuvertureInscription(\DateTime $date_ouverture_inscription=null): self
     {
         $this->date_ouverture_inscription = $date_ouverture_inscription;
 
         return $this;
     }
 
-    public function getDateFermetureInscription(): ?\DateTimeInterface
+    public function getDateFermetureInscription(): ?\DateTime
     {
         return $this->date_fermeture_inscription;
     }
 
-    public function setDateFermetureInscription(\DateTimeInterface $date_fermeture_inscription): self
+    public function setDateFermetureInscription(\DateTime $date_fermeture_inscription): self
     {
         $this->date_fermeture_inscription = $date_fermeture_inscription;
 
@@ -330,24 +358,24 @@ class Sortie
         return $this;
     }
 
-    public function getDateDebutSortie(): ?\DateTimeInterface
+    public function getDateDebutSortie(): ?\DateTime
     {
         return $this->date_debut_sortie;
     }
 
-    public function setDateDebutSortie(\DateTimeInterface $date_debut_sortie): self
+    public function setDateDebutSortie(\DateTime $date_debut_sortie): self
     {
         $this->date_debut_sortie = $date_debut_sortie;
 
         return $this;
     }
 
-    public function getDateFinSortie(): ?\DateTimeInterface
+    public function getDateFinSortie(): ?\DateTime
     {
         return $this->date_fin_sortie;
     }
 
-    public function setDateFinSortie(\DateTimeInterface $date_fin_sortie): self
+    public function setDateFinSortie(\DateTime $date_fin_sortie): self
     {
         $this->date_fin_sortie = $date_fin_sortie;
 

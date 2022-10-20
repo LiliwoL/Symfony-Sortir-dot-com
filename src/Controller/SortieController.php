@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Inscription;
-use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\RechercheSortieType;
 use App\Form\SortieType;
@@ -39,7 +38,7 @@ class SortieController extends AbstractController
             $choices['user_id'] = $this->getUser();
             $sorties = $sortieRepository->searchSortie($choices);
         } else {
-            $sorties = $sortieRepository->findAll();
+            $sorties = $sortieRepository->findNotNull();
         }
 
         // Calcul de l'état de la sortie
@@ -62,12 +61,9 @@ class SortieController extends AbstractController
 
             //Determination des états
             $dateCourante= new \DateTime();
-            $sortie->setEtat('NON VALIDE');
-            if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->setEtat('EN CREATION'); }
-            if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
-            if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }
-            if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->setEtat('EN COURS'); }
-            if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
+            $sortie->setEtat('');
+            $sortie->calculEtat($dateCourante);
+
         }
 
         $SchemeAndHttpHost = $request->getSchemeAndHttpHost();
@@ -83,15 +79,16 @@ class SortieController extends AbstractController
     public function new(Request $request, SortieRepository $sortieRepository): Response
     {
         $sortie = new Sortie();
-        $lieu= new Lieu();
+        $dateAujourdHui= new \DateTime();
 
         $formSortie = $this->createForm(SortieType::class, $sortie);
         $formSortie->handleRequest($request);
 
-
         if ($formSortie->isSubmitted() && $formSortie->isValid()) {
 
             $sortie = $formSortie->getData();
+
+            $sortie->setDateEnregistrement($dateAujourdHui);
 
             $datedebut = $formSortie['date_debut_sortie']->getData();
             $sortie->setDateDebutSortie($datedebut);
@@ -99,11 +96,11 @@ class SortieController extends AbstractController
             $datefin = $formSortie['date_fin_sortie']->getData();
             $sortie->setDateFinSortie($datefin);
 
-
             if( $formSortie->get('Enregistrer')->isClicked()){
-                $sortie->setEtat("EN CREATION");
+                $sortie->setDateEnregistrement($dateAujourdHui);
+                $sortie->setDateOuvertureInscription(NULL);
             }elseif( $formSortie->get('Publier')->isClicked()){
-                $sortie->setEtat("OUVERT");
+                $sortie->setDateOuvertureInscription($dateAujourdHui);
 
             }else{
                 return $this->redirectToRoute('app_sortie_index');
@@ -132,13 +129,16 @@ class SortieController extends AbstractController
     ): Response
     {
         $dateCourante= new \DateTime();
-        $sortie->setEtat('NON VALIDE');
+
         //TODO A factoriser
-        if ( $sortie->getDateEnregistrement() <= $dateCourante){ $sortie->setEtat('EN CREATION'); }
-        if ( $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
-        if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }
-        if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->setEtat('EN COURS'); }
-        if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
+
+        $sortie->calculEtat($dateCourante);
+
+        //if ( $sortie->getDateEnregistrement() <= $dateCourante || $sortie->getDateOuvertureInscription() == null){ $sortie->setEtat('EN CREATION'); }
+        //if ($sortie->getDateOuvertureInscription() !== null && $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
+        //if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }
+        //if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->setEtat('EN COURS'); }
+        //if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
 
         $inscriptions = $inscriptionRepository->findBy(['sortie' => $sortie]);
         $inscrits = [];
@@ -159,6 +159,18 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $dateAujourdHui= new \DateTime();
+            if( $form->get('Enregistrer')->isClicked()){
+                $sortie->setDateEnregistrement($dateAujourdHui);
+                $sortie->setDateOuvertureInscription(NULL);
+            }elseif( $form->get('Publier')->isClicked()){
+                $sortie->setDateOuvertureInscription($dateAujourdHui);
+
+            }else{
+                return $this->redirectToRoute('app_sortie_index');
+            }
+
             $sortieRepository->save($sortie, true);
 
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
@@ -213,5 +225,6 @@ class SortieController extends AbstractController
 
         return new JsonResponse(['toogle' => false, 'nbInscrit' => $nbInscrit]);
     }
+
 
 }

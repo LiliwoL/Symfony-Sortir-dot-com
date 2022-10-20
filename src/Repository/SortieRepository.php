@@ -74,6 +74,20 @@ class SortieRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    /**
+     * @return Sortie[] Returns an array of Sortie objects
+     */
+
+    public function findNotNull() : array
+    {
+        $var=$this->createQueryBuilder('s');
+        $var->andWhere($var->expr()->isNotNull('s.date_ouverture_inscription'));
+        return $var
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Sortie
 //    {
 //        return $this->createQueryBuilder('s')
