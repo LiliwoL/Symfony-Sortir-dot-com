@@ -40,70 +40,81 @@
         <div class="container-fluid header_main">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="logo">
-                        <img src="{{ asset('assets/images/logo-eni.png') }}" alt="logo">
-                        <img src="{{ asset('assets/images/logo-sortirdotcom.png') }}" alt="logo">
+                        <img src="{{ asset('assets/images/logo-eni-sortirdotcom.png') }}" alt="logo">
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-
-                    </button>
                     <div class="collapse navbar-collapse show" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto nav-mr-left">
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <li class="nav-item">
+                                    <a class="nav-link admin" href="{{ path('app_register') }}">Inscription</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link admin" href="{{ path('app_ville_index') }}">Villes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link admin" href="{{ path('app_site_index') }}">Sites</a>
+                                </li>
+                                <div class="separator">&nbsp;</div>
+                            {% endif %}
+
                             {% if app.user %}
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_ville_index') }}">&nbsp;&nbsp; Villes &nbsp;&nbsp;</a>
+                                    <a class="nav-link" href="{{ path('app_sortie_index') }}">Sorties</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_site_index') }}">&nbsp;&nbsp; Sites &nbsp;&nbsp;</a>
+                                    <a class="nav-link" href="{{ path('app_utlisateur') }}">utilisateurs</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">&nbsp;&nbsp;Accueil&nbsp;&nbsp;</a>
+                                    <a class="nav-link" href="{{ path('app_sortie_new') }}">Creer&nbsp;sortie</a>
                                 </li>
-                                <li class="nav-item dropdown dropstart">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                    <img class="profil" src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                    <table class="table">
-                                        <tr>
-                                            <td><strong>Pseudo</strong></td>
-                                            <td>{{ app.user.userIdentifier }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Prénom</strong></td>
-                                            <td>{{ app.user.prenom }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Nom</strong></td>
-                                            <td>{{ app.user.nom }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Tél</strong></td>
-                                            <td>{{ app.user.telephone }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>E-mail</strong></td>
-                                            <td>{{ app.user.courriel }}</td>
-                                        </tr>
-                                    </table>
-                                    </li>
-                                    <li class="dropdown-item"> <a href="{{ path('profile_edit') }}">Modifier</a></li>
-                                    <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">Me déconnecter</a></li>
+                            {% endif%}
 
+                            {% if app.user %}
+                                    <!--Attention panneau profil-->
+                                    <li class="nav-item dropdown dropstart">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                        <img class="profil" src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                        <table class="table">
+                                            <tr>
+                                                <td><strong>Pseudo</strong></td>
+                                                <td>{{ app.user.userIdentifier }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Prénom</strong></td>
+                                                <td>{{ app.user.prenom }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Nom</strong></td>
+                                                <td>{{ app.user.nom }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Tél</strong></td>
+                                                <td>{{ app.user.telephone }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>E-mail</strong></td>
+                                                <td>{{ app.user.courriel }}</td>
+                                            </tr>
+                                        </table>
+                                        </li>
+                                        <li class="dropdown-item"> <a href="{{ path('profile_edit') }}">Modifier</a></li>
+                                        <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">Me déconnecter</a></li>
 
-                                </ul>
-                            </li>
-                     {% endif%}
+                                    </ul>
+                                </li>
+                            {% endif%}
+
                             {% if not app.user %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-                            </li>
-                      {% if is_granted("ROLE_ADMIN") %}
-                            <li class="nav-item">
-                            <a class="nav-link" href="#">S'inscrire</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                                </li>
                             {% endif %}
-                            {% endif %}
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_accueil') }}">Accueil</a>
+                            </li>
 
                         </ul>
                     </div>

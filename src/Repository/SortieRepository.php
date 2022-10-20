@@ -46,7 +46,7 @@ class SortieRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('s');
         if ($arrayRequest['site'] != "") {
-            $query->join('s.organisateur', 'o');
+            $query->Leftjoin('s.organisateur', 'o');
             $query->andWhere('o.site = :site_id')->setParameter('site_id', $arrayRequest['site']);
         }
         if ($arrayRequest['mot_cle'] != "") {
@@ -66,12 +66,33 @@ class SortieRepository extends ServiceEntityRepository
             $query->andWhere('i.utilisateur = :inscrit')->setParameter('inscrit', $arrayRequest['user_id']);
         }
         if ($arrayRequest['passe']) {
-            $query->andWhere('s.date_fin_sortie < :now')->setParameter('now', new \DateTime());
+            $query->andWhere('s.date_debut_sortie < :now')->setParameter('now', new \DateTime());
+        }else {
+            $query->andWhere('s.date_debut_sortie > :now')->setParameter('now', new \DateTime());
         }
+        //dd($query);
+        // Ne pas afficher les sorties datant de plus d'un mois
+        $onmonthago = date_sub(new \DateTime(), new \DateInterval('P1M'));
+        $query->andWhere('s.date_debut_sortie > :onemonthago')->setParameter('onemonthago', $onmonthago);
+
         $query->orderBy('s.date_debut_sortie', 'DESC')
             ->setMaxResults(10);
-
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @return Sortie[] Returns an array of Sortie objects
+     */
+
+    public function findNotNull() : array
+    {
+        $var=$this->createQueryBuilder('s');
+        $var->andWhere($var->expr()->isNotNull('s.date_ouverture_inscription'));
+        $var->andWhere('s.date_debut_sortie > :now')->setParameter('now', new \DateTime());
+        return $var
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    public function findOneBySomeField($value): ?Sortie

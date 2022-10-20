@@ -30,9 +30,6 @@ class SortieType extends AbstractType
                     'label' => 'Lieux de sortie',
                     'choice_label' => 'nom',
                 ])
-            //->add('date_enregistrement', DateTimeType::class, [
-            //    'date_widget' => 'single_text',
-            //    'time_widget' => 'single_text'])
             ->add('date_ouverture_inscription', DateTimeType::class, [
                 'data' => new \DateTime(' now ', $timezone),
                 'date_widget' => 'single_text',
