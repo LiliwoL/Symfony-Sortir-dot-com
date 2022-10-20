@@ -136,7 +136,8 @@ class RegistrationController extends AbstractController
     {
         // Forbidden for connected users
         if(null !== $this->getUser()) {
-            return $this->redirectToRoute('app_accueil');
+            $this->addFlash('message', 'Vous auriez dû être déconnecté pour accéder à cette page.');
+            return $this->redirectToRoute('app_login');
         }
 
         $user_id = $request->getSession()->get('id_nouveau_utilisateur');
@@ -144,6 +145,7 @@ class RegistrationController extends AbstractController
         $users = $utilisateurRepository->findBy(['id' => $user_id]);
         // Ensure the user has not already submit this form
         if (empty($users) || $users[0]->isIsCguAccepte()) {
+            $this->addFlash('message', 'Vous n\'avez pas l\'autorisation d\accéder à cette page.');
             return $this->redirectToRoute('app_accueil');
         }
         $user = $users[0];

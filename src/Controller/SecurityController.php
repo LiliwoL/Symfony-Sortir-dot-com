@@ -20,6 +20,7 @@ class SecurityController extends AbstractController
 
         $nbActif = $utilisateurRepository->count(['isActif' => true]);
 
+        $this->addFlash('message', 'Vous êtes connecté à SORTIRDOTCOM.');
         return $this->render('accueil/index.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'nbActif' => $nbActif]);
     }
 

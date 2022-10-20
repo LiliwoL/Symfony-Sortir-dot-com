@@ -43,6 +43,7 @@ class SiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $siteRepository->save($site, true);
 
+            $this->addFlash('message', 'Le site a été ajouté.');
             return $this->redirectToRoute('app_site_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -69,6 +70,7 @@ class SiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $siteRepository->save($site, true);
 
+            $this->addFlash('message', 'La site a bien été ajouté.');
             return $this->redirectToRoute('app_site_index', [], Response::HTTP_SEE_OTHER);
         }
 
