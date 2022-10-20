@@ -44,32 +44,30 @@
                     </div>
                     <div class="collapse navbar-collapse show" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto nav-mr-left">
-                            {% if app.user %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_sortie_index') }}">&nbsp;&nbsp; Sorties &nbsp;&nbsp;</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_accueil') }}">&nbsp;&nbsp; Accueil &nbsp;&nbsp;</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_utlisateur') }}">&nbsp;&nbsp; utilisateurs &nbsp;&nbsp;</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_sortie_new') }}">&nbsp;&nbsp; Creer sortie &nbsp;&nbsp;</a>
-                                </li>
-                            {% endif%}
                             {% if is_granted("ROLE_ADMIN") %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_register') }}">&nbsp;&nbsp; Inscription &nbsp;&nbsp;</a>
+                                    <a class="nav-link admin" href="{{ path('app_register') }}">Inscription</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_ville_index') }}">&nbsp;&nbsp; Villes &nbsp;&nbsp;</a>
+                                    <a class="nav-link admin" href="{{ path('app_ville_index') }}">Villes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_site_index') }}">&nbsp;&nbsp; Sites &nbsp;&nbsp;</a>
+                                    <a class="nav-link admin" href="{{ path('app_site_index') }}">Sites</a>
                                 </li>
-
+                                <div class="separator">&nbsp;</div>
                             {% endif %}
+
+                            {% if app.user %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_sortie_index') }}">Sorties</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_utlisateur') }}">utilisateurs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_sortie_new') }}">Creer&nbsp;sortie</a>
+                                </li>
+                            {% endif%}
 
                             {% if app.user %}
                                     <!--Attention panneau profil-->
@@ -112,12 +110,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                                 </li>
-                                {% if is_granted("ROLE_ADMIN") %}
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">S'inscrire</a>
-                                    </li>
-                                {% endif %}
                             {% endif %}
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_accueil') }}">Accueil</a>
+                            </li>
 
                         </ul>
                     </div>
