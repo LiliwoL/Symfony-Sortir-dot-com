@@ -50,58 +50,71 @@
                         <ul class="navbar-nav mr-auto nav-mr-left">
                             {% if app.user %}
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_ville_index') }}">&nbsp;&nbsp; Villes &nbsp;&nbsp;</a>
+                                    <a class="nav-link" href="{{ path('app_sortie_index') }}">&nbsp;&nbsp; Sorties &nbsp;&nbsp;</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_site_index') }}">&nbsp;&nbsp; Sites &nbsp;&nbsp;</a>
+                                    <a class="nav-link" href="{{ path('app_accueil') }}">&nbsp;&nbsp; Accueil &nbsp;&nbsp;</a>
+                                </li>
+                            {% endif%}
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_register') }}">&nbsp;&nbsp; Inscription &nbsp;&nbsp;</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">&nbsp;&nbsp;Accueil&nbsp;&nbsp;</a>
+                                    <a class="nav-link" href="{{ path('app_ville_index') }}">&nbsp;&nbsp; Villes &nbsp;&nbsp;</a>
                                 </li>
-                                <li class="nav-item dropdown dropstart">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                    <img class="profil" src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                    <table class="table">
-                                        <tr>
-                                            <td><strong>Pseudo</strong></td>
-                                            <td>{{ app.user.userIdentifier }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Prénom</strong></td>
-                                            <td>{{ app.user.prenom }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Nom</strong></td>
-                                            <td>{{ app.user.nom }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Tél</strong></td>
-                                            <td>{{ app.user.telephone }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>E-mail</strong></td>
-                                            <td>{{ app.user.courriel }}</td>
-                                        </tr>
-                                    </table>
-                                    </li>
-                                    <li class="dropdown-item"> <a href="{{ path('profile_edit') }}">Modifier</a></li>
-                                    <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">Me déconnecter</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_site_index') }}">&nbsp;&nbsp; Sites &nbsp;&nbsp;</a>
+                                </li>
 
-
-                                </ul>
-                            </li>
-                     {% endif%}
-                            {% if not app.user %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-                            </li>
-                      {% if is_granted("ROLE_ADMIN") %}
-                            <li class="nav-item">
-                            <a class="nav-link" href="#">S'inscrire</a>
-                            </li>
                             {% endif %}
+
+                            {% if app.user %}
+                                    <!--Attention panneau profil-->
+                                    <li class="nav-item dropdown dropstart">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                        <img class="profil" src="{{ asset('assets/images/avatar-anonyme.png') }}" alt="profil"></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                        <table class="table">
+                                            <tr>
+                                                <td><strong>Pseudo</strong></td>
+                                                <td>{{ app.user.userIdentifier }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Prénom</strong></td>
+                                                <td>{{ app.user.prenom }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Nom</strong></td>
+                                                <td>{{ app.user.nom }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Tél</strong></td>
+                                                <td>{{ app.user.telephone }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>E-mail</strong></td>
+                                                <td>{{ app.user.courriel }}</td>
+                                            </tr>
+                                        </table>
+                                        </li>
+                                        <li class="dropdown-item"> <a href="{{ path('profile_edit') }}">Modifier</a></li>
+                                        <li class="dropdown-item"> <a href="{{ path('app_logout') }}" style type="color=">Me déconnecter</a></li>
+
+                                    </ul>
+                                </li>
+                            {% endif%}
+
+                            {% if not app.user %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                                </li>
+                                {% if is_granted("ROLE_ADMIN") %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">S'inscrire</a>
+                                    </li>
+                                {% endif %}
                             {% endif %}
 
                         </ul>
