@@ -36,6 +36,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Default values
             $user->setIsCguAccepte(false);
+            $user->setIsActif(false);
             // encode the plain password
             //By default provisional password is generated randomly
             try {
@@ -50,7 +51,6 @@ class RegistrationController extends AbstractController
                     'registrationForm' => $form->createView(),
                 ]);
             }
-
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -81,7 +81,7 @@ class RegistrationController extends AbstractController
     {
         // Forbidden for connected users
         if(null !== $this->getUser()) {
-            $this->addFlash('warning', 'Vous auriez dû être déconnecté pour accéder à cette page.');
+            $this->addFlash('message', 'Vous auriez dû être déconnecté pour accéder à cette page.');
             return $this->redirectToRoute('app_accueil');
         }
 
@@ -102,6 +102,7 @@ class RegistrationController extends AbstractController
 
         // Ensure the user has not already submit this form
         if ($user->isIsCguAccepte()) {
+            $this->addFlash('message', 'Vous n\'avez pas l\'autorisation d\accéder à cette page.');
             return $this->redirectToRoute('app_accueil');
         }
 
@@ -109,10 +110,10 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
+            $this->addFlash('message', $exception->getReason());
             return $this->redirectToRoute('app_register_utilisateur_expire');
         }
-        $this->addFlash('success', 'Votre courriel a bien été vérifié.');
+        $this->addFlash('message', 'Votre courriel a bien été vérifié.');
 
         // Pass safely id_nouveau_utilisateur to app_register_utilisateur route method
         $request->getSession()->set("id_nouveau_utilisateur", $user->getId());
@@ -163,7 +164,7 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-
+            $this->addFlash('message', 'Votre inscription est finalisée.');
             return $this->redirectToRoute('app_login');
         }
 
