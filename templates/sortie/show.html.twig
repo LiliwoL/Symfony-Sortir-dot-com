@@ -3,64 +3,63 @@
 {% block title %}Sortie{% endblock %}
 
 {% block body %}
-    <h1>Sortie</h1>
+
+    <h1 class="text-center mb-5">Sortie : {{ sortie.nom }}</h1>
 
     <div class="gauche">
-        {% if app.user().id == sortie.organisateur.id %}
-            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}" class="btn">Modifier</a>
-            {{ include('sortie/_delete_form.html.twig') }}
-        {% endif %}
 
+        <div>
+           <H2> Organisateur : {{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</H2>
+           <div>
+               <p>Publier le : {{ sortie.dateEnregistrement ? sortie.dateEnregistrement|date('d-m-Y') : 'Non publié' }}</p>
+           </div>
+           <div>
+               <p>
+                   {{ sortie.description }}
+               </p>
+           </div>
+            <div>
+
+                <H2>Informations pratiques</H2>
+                <div>
+                    <H3>Etat</H3>
+                    <p>{{ sortie.etat}}</p>
+                </div>
+                <div>
+                    <H3>Nombre maximum d'inscrits</H3>
+                    <p>{{ sortie.nbInscriptionMax }}</p>
+                </div>
+                <div>
+                    <H3>Date de fermeture de l'inscription</H3>
+                    <p>Le {{ sortie.dateFermetureInscription ? sortie.dateFermetureInscription|date('d-m-Y') : '' }}</p>
+                </div>
+                <div>
+                    <H3>Date debut sortie</H3>
+                    <p>Le {{ sortie.dateDebutSortie ? sortie.dateDebutSortie|date('d-m-Y') : '' }}</p>
+                </div>
+                <div>
+                    <H3>Duree</H3>
+                    <p>
+                        {% if sortie.duree.m != 0 %}
+                            {{ sortie.duree | date('%m mois %d\j %h\h%I') }}
+                        {% elseif sortie.duree.d != 0 %}
+                            {{ sortie.duree | date('%d\j %h\h%I') }}
+                        {% elseif sortie.duree.h != 0 %}
+                            {{ sortie.duree | date('%h\h%I') }}
+                        {%  else %}
+                            {{ sortie.duree | date('%I') }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <H2>Adresse</H2>
         <table class="table">
             <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ sortie.id }}</td>
-                </tr>
-                <tr>
-                    <th>Organisateur</th>
-                    <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</td>
-                </tr>
-                <tr>
-                    <th>Nom</th>
-                    <td>{{ sortie.nom }}</td>
-                </tr>
-                <tr>
-                    <th>Nombre maximum d'inscrits</th>
-                    <td>{{ sortie.nbInscriptionMax }}</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{{ sortie.description }}</td>
-                </tr>
-                <tr>
-                    <th>Date d'enregistrement</th>
-                    <td>{{ sortie.dateEnregistrement ? sortie.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Date d'ouverture de l'inscription</th>
-                    <td>{{ sortie.dateOuvertureInscription ? sortie.dateOuvertureInscription|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Date de fermeture de l'inscription</th>
-                    <td>{{ sortie.dateFermetureInscription ? sortie.dateFermetureInscription|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Etat</th>
-                    <td>{{ sortie.etat}}</td>
-                </tr>
-                <tr>
-                    <th>Est annulée ?</th>
-                    <td>{{ sortie.isAnnulee ? 'Oui' : 'Non' }}</td>
-                </tr>
-                <tr>
-                    <th>Date debut sortie</th>
-                    <td>{{ sortie.dateDebutSortie ? sortie.dateDebutSortie|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Date fin sortie</th>
-                    <td>{{ sortie.dateFinSortie ? sortie.dateFinSortie|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
                 <tr>
                     <th>Lieu</th>
                     <td id="lieu">{{ sortie.adresse.nom }}</td>
@@ -77,6 +76,10 @@
                 </tr>
             </tbody>
         </table>
+        {% if app.user().id == sortie.organisateur.id %}
+            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}" class="btn">Modifier</a>
+            {{ include('sortie/_delete_form.html.twig') }}
+        {% endif %}
     </div>
 
     <div class="droite">
@@ -129,7 +132,7 @@
 
     </script>
 
-    <h2>Participants</h2>
+    <h2>Participants ( {{ nbparticipant }} )</h2>
     {% for utilisateur in inscrits %}
         {% include 'utilisateur/utilisateurItem.html.twig' %}
     {% endfor %}

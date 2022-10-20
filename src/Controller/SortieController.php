@@ -22,11 +22,13 @@ class SortieController extends AbstractController
     #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
     public function index(Request $request, SortieRepository $sortieRepository, InscriptionRepository $inscriptionRepository): Response
     {
+
         $form = $this->createForm(RechercheSortieType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Lister les sorties demandées
+
             $choicesRequest = $form->getData();
             $choices['site'] = $choicesRequest['site'] ?? "";
             $choices['mot_cle'] = $choicesRequest['mot_cle'] ?? "";
@@ -130,25 +132,22 @@ class SortieController extends AbstractController
     {
         $dateCourante= new \DateTime();
 
-        //TODO A factoriser
 
         $sortie->calculEtat($dateCourante);
-
-        //if ( $sortie->getDateEnregistrement() <= $dateCourante || $sortie->getDateOuvertureInscription() == null){ $sortie->setEtat('EN CREATION'); }
-        //if ($sortie->getDateOuvertureInscription() !== null && $sortie->getDateOuvertureInscription() <= $dateCourante){ $sortie->setEtat('OUVERT'); }
-        //if ( $sortie->getDateFermetureInscription() <= $dateCourante){ $sortie->setEtat('FERME'); }
-        //if ( $sortie->getDateDebutSortie() <= $dateCourante){ $sortie->setEtat('EN COURS'); }
-        //if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
+        //Durée de la sortie
+        $duree = date_diff($sortie->getDateFinSortie(), $sortie->getDateDebutSortie());
+        $sortie->setDuree($duree);
 
         $inscriptions = $inscriptionRepository->findBy(['sortie' => $sortie]);
         $inscrits = [];
         foreach ($inscriptions as $inscription) {
             $inscrits[] = $utilisateurRepository->findOneBy(['id' => $inscription->getUtilisateur()]);
         }
-
+        $nb=count($inscrits) ;
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
-            'inscrits' => $inscrits
+            'inscrits' => $inscrits,
+            'nbparticipant' => $nb,
         ]);
     }
 
