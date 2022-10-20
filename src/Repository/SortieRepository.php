@@ -66,8 +66,11 @@ class SortieRepository extends ServiceEntityRepository
             $query->andWhere('i.utilisateur = :inscrit')->setParameter('inscrit', $arrayRequest['user_id']);
         }
         if ($arrayRequest['passe']) {
-            $query->andWhere('s.date_fin_sortie < :now')->setParameter('now', new \DateTime());
+            $query->andWhere('s.date_debut_sortie < :now')->setParameter('now', new \DateTime());
+        } else {
+            $query->andWhere('s.date_debut_sortie > :now')->setParameter('now', new \DateTime());
         }
+        $query->andWhere('s.date_debut_sortie > :now')->setParameter('now', new \DateTime());
         $query->orderBy('s.date_debut_sortie', 'DESC')
             ->setMaxResults(10);
 
