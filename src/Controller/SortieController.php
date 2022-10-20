@@ -141,6 +141,7 @@ class SortieController extends AbstractController
         if ( $sortie->getDateFinSortie() <= $dateCourante){ $sortie->setEtat('ARCHIVE'); }
 
         $inscriptions = $inscriptionRepository->findBy(['sortie' => $sortie]);
+        $inscrits = [];
         foreach ($inscriptions as $inscription) {
             $inscrits[] = $utilisateurRepository->findOneBy(['id' => $inscription->getUtilisateur()]);
         }
