@@ -169,7 +169,10 @@ img {
 }
 
 .nav-mr-left {
-    margin-left: 45%;
+  position : absolute;
+    top: 0;
+    right: 0;
+
 }
  :focus {
     outline: 0;
