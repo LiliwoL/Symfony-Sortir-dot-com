@@ -28,7 +28,7 @@ VALUES
 (5, 'ENI Campus Quimper','2, rue Georges Perros',47.97711944580078, -4.083467960357666),
 (6, 'ENI Campus Niort', '19 avenue Léo Lagrange', 46.31629943847656, -0.4703825116157532 ),
 (1, 'Lieu Unique','2 Rue de la Biscuiterie', 47.215084075927734, -1.5454285144805908),
-(3, 'Roazhon Park','111 Rue de Lorient',48.10929870605469,-1.7080506086349487 ),
+(3, 'Roazhon Park','111 Rue de Lorient',48.107745,-1.714349 ),
 (1, 'Gare de Nantes','25 boulevard de staligrad',47.21796,-1.542652 ),
 (4, 'ENI Campus Rennes', 'ZAC de La Conterie, 8 Rue Léo Lagrange',48.039398193359375, -1.6918691396713257 );
 
@@ -59,7 +59,7 @@ VALUES
 INSERT INTO sortie (organisateur_id, adresse_id, nom, nb_inscription_max, description, date_ouverture_inscription, date_fermeture_inscription, date_debut_sortie, is_annulee, date_enregistrement, date_fin_sortie)
 VALUES
 (2,5,'KMRU',10,'Né à Nairobi et actuellement basé à Berlin pour des études universitaires, KMRU est un artiste sonore et un producteur qui nourrit sa musique de field recording*, d’improvisation, de bruit, de machine learning*, d’art radiophonique et de drones. À la frontière entre l’ambient et les musiques africaines, KMRU explore les sonorités et réveille d’intenses émotions pour celui qui l’écoute','2022-10-13 12:00','2022-11-12 12:00', '2022-12-15 19:00', false, '2022-10-13 14:00','2022-12-15 23:00'),
-(3,6,'Football, Stade Rennais - FC Toulouse', 10, '15 ème journée de Ligue 1 ','2022-10-13 12:00','2022-10-14 12:00', '2022-11-13 20:00', false, '2022-10-13 12:00','2022-12-15 23:59'),
+(3,6,'Football, Stade Rennais - FC Toulouse', 10, '15 ème journée de Ligue 1 ','2022-10-13 12:00','2022-10-14 12:00', '2022-12-15 20:00', false, '2022-10-10 12:00','2022-12-15 23:59'),
 (4,7,'harmonie', 2, 'Venez vous ressourcer dans un lieu zen au contact de la nature','2022-10-19 12:00','2022-12-31 12:00', '2023-01-01 20:00', false, '2022-10-12 12:00','2023-03-02 21:00')
 ;
 /*Jeux de données photoSortie*/
