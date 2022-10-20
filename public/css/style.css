@@ -1155,9 +1155,19 @@ textarea#comment::placeholder {
     float: right;
 }
 
+.alert-message {
+    min-height: 200px;
+}
+
 .blink {
     animation: 3s ease-out infinite condemed_blink_effect, 10s linear deplacement;
+    position: absolute;
+    width: 200%;
     left: -100%;
+}
+
+.alert {
+    width: fit-content !important;
 }
 
 @keyframes deplacement {
@@ -1173,18 +1183,12 @@ textarea#comment::placeholder {
 0% {
     visibility: hidden;
 }
-50% {
-    visibility: hidden;
-}
 100% {
     visibility: visible;
 }
 }
 @keyframes condemed_blink_effect {
     0% {
-        visibility: hidden;
-    }
-    50% {
         visibility: hidden;
     }
     100% {
