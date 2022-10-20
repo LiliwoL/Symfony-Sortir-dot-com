@@ -41,10 +41,14 @@ class SiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $siteRepository->save($site, true);
+            if (count($siteRepository->findBy(['localisation' => $site->getLocalisation()])) == 0)  {
+                $siteRepository->save($site, true);
 
-            $this->addFlash('message', 'Le site a été ajouté.');
-            return $this->redirectToRoute('app_site_index', [], Response::HTTP_SEE_OTHER);
+                $this->addFlash('message', 'Le site a été ajouté.');
+                return $this->redirectToRoute('app_site_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                $this->addFlash('message', 'Ce lieu est déjà associé à un site.');
+            }
         }
 
         return $this->renderForm('site/new.html.twig', [

@@ -17,9 +17,8 @@ class SiteType extends AbstractType
             ->add('nom')
             ->add('localisation' , EntityType::class ,[
                 'class' => Lieu::class,
-                'choice_label' => 'nom',
-
-                ])
+                'choice_label' => 'nom'
+            ])
         ;
     }
 
