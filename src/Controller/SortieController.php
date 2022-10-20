@@ -100,7 +100,7 @@ class SortieController extends AbstractController
 
             if( $formSortie->get('Enregistrer')->isClicked()){
                 $sortie->setDateEnregistrement($dateAujourdHui);
-                $sortie->setDateOuvertureInscription(NULL);
+                //$sortie->setDateOuvertureInscription(NULL);
             }elseif( $formSortie->get('Publier')->isClicked()){
                 $sortie->setDateOuvertureInscription($dateAujourdHui);
 
