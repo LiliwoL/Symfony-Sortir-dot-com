@@ -71,12 +71,11 @@
             })
                 .then(r=>r.json())
                 .then(r=>{
-                    if (r.features[0].properties.street !== undefined) {
-                        let coords = r.features[0].geometry.coordinates;
-                        document.getElementById("lieu_latitude").value = coords[1];
-                        document.getElementById("lieu_longitude").value = coords[0];
-                        showLieu(coords[1], coords[0]);
-                        }
+                    let coords = r.features[0].geometry.coordinates;
+                    document.getElementById("lieu_latitude").value = coords[1];
+                    document.getElementById("lieu_longitude").value = coords[0];
+                    showLieu(coords[1], coords[0]);
+
                 })
         }
 
