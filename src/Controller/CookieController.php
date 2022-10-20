@@ -20,6 +20,7 @@ class CookieController extends AbstractController
         $cookie = Cookie::create('accept_cookie', 'true',  $expires);
         $response = $this->redirectToRoute('app_accueil');
         $response->headers->setCookie($cookie);
+        $this->addFlash('message', 'Votre choix a été enregistré.');
         return $response;
     }
 }

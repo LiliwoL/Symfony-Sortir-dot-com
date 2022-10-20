@@ -41,13 +41,9 @@ class UtilisateurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('message' , 'profil mis à jour');
+            $this->addFlash('message' , 'Votre profil a été mis à jour.');
             return $this->redirect($this->generateUrl('profile_edit'));
-            }
-            /*else{
-                    $this->addFlash('erreur','Erreur');
-             }
-        */
+        }
         return $this->render('utilisateur/edit.html.twig', [
             'form' => $form->createView()
         ]);

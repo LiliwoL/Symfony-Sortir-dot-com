@@ -108,7 +108,7 @@ class SortieController extends AbstractController
 
             $sortie->setOrganisateur($this->getUser());
 
-            $this->addFlash('success', 'La sortie a été ajoutée !');
+            $this->addFlash('message', 'La sortie a été ajoutée.');
 
             $sortieRepository->save($sortie, true);
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
@@ -173,6 +173,7 @@ class SortieController extends AbstractController
 
             $sortieRepository->save($sortie, true);
 
+            $this->addFlash('message', 'La sortie a bien été modifiée.');
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 

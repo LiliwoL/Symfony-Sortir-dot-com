@@ -6,6 +6,7 @@ use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,10 +40,11 @@ class RegistrationUtilisateurFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-                'label' => 'mot de passe'
+                'label' => 'Mot de passe'
             ])
             ->add('telephone', TextType::class, [
-                'label' => 'Téléphone (facultatif)'
+                'label' => 'Téléphone (facultatif)',
+                'required' => false
             ])
             //->add('nomPhoto')
             ->add('cgu', CheckboxType::class, [
@@ -53,6 +55,9 @@ class RegistrationUtilisateurFormType extends AbstractType
                         'message' => 'Cocher pour accepter les conditions générales d\'utilisation.',
                     ]),
                 ],
+            ])
+            ->add('Valider', SubmitType::class, [
+                'label' => 'Valider votre inscription'
             ])
         ;
     }
