@@ -1,7 +1,7 @@
 {% for message in app.session.flashbag.get('message') %}
-    <div class="d-flex flex-row justify-content-center m-5">
-        <span class="alert alert-{{ app.session.get('statut') }}">
-            {{ message  }}
+    <div class="d-flex flex-row justify-content-center m-5 blink_parent">
+        <span class="alert alert-warning blink">
+            {{ message }}
         </span>
     </div>
 {% endfor %}

@@ -1154,3 +1154,40 @@ textarea#comment::placeholder {
     width: 50%;
     float: right;
 }
+
+.blink {
+    animation: 3s ease-out infinite condemed_blink_effect, 10s linear deplacement;
+    left: -100%;
+}
+
+@keyframes deplacement {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes condemed_blink_effect {
+0% {
+    visibility: hidden;
+}
+50% {
+    visibility: hidden;
+}
+100% {
+    visibility: visible;
+}
+}
+@keyframes condemed_blink_effect {
+    0% {
+        visibility: hidden;
+    }
+    50% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: visible;
+    }
+}
