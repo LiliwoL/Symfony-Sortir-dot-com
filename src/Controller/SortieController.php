@@ -143,10 +143,11 @@ class SortieController extends AbstractController
         foreach ($inscriptions as $inscription) {
             $inscrits[] = $utilisateurRepository->findOneBy(['id' => $inscription->getUtilisateur()]);
         }
-
+        $nb=count($inscrits) ;
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
-            'inscrits' => $inscrits
+            'inscrits' => $inscrits,
+            'nbparticipant' => $nb,
         ]);
     }
 
