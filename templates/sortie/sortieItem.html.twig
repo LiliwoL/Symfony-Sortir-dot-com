@@ -31,7 +31,7 @@
         {% if sortie.etat == "OUVERT" or sortie.etat == "CREATION" %}
         <a href="javascript:void(0);"><span class="action_sortie_sinscrire" data-sortie-id="{{ sortie.id }}">
             {% if sortie.estInscrit %}
-                Se désister
+                Se désinscrire
             {% else %}
                 S'inscrire
             {% endif %}

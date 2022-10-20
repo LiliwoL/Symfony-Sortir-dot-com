@@ -43,7 +43,7 @@ class RegistrationController extends AbstractController
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
-                        random_bytes(16)
+                        random_bytes(15)
                     )
                 );
             } catch (\Exception $e) {
