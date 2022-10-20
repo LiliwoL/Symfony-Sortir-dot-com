@@ -5,14 +5,13 @@ namespace App\Controller;
 
 use App\Form\ModifierProfilType;
 use App\Repository\UtilisateurRepository;
+use App\Service\ImageUpload;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-//use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UtilisateurController extends AbstractController
 {
@@ -31,14 +30,17 @@ class UtilisateurController extends AbstractController
 
         Request                     $request,
         EntityManagerInterface      $entityManager,
-
+        UtilisateurRepository   $utilisateurRepository,
+        ImageUpload $imageUpload
     ): Response
     {
-        $user =$this->getUser();
+        $user = $utilisateurRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
         $form = $this->createForm(ModifierProfilType::class , $user);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageUploaded = $form['nomPhoto']->getData();
+            $newFileName = $imageUpload->upload($imageUploaded, $user->getId());
+            $user-> setNomPhoto($newFileName);
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('message' , 'Votre profil a été mis à jour.');
