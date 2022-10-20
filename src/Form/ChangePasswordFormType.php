@@ -28,8 +28,7 @@ class ChangePasswordFormType extends AbstractType
                             'message' => 'Merci d\'entrer votre mot de passe',
                         ]),
                         new Length([
-                            // TODO Changer min à 16 avant la production
-                            'min' => 1,
+                            'min' => 15,
                             'minMessage' => 'Votre mot de passe doit contenir au minimum {{ limit }} lettres et chiffres',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
