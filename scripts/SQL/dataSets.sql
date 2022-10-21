@@ -45,13 +45,14 @@ VALUES
 
 /* Jeux de données utilisateur*/
 
+/*  password : azerty0123456789 */
 INSERT INTO utilisateur (username,site_id,roles, password, courriel, is_verified, nom, prenom, telephone, is_actif, nom_photo, is_cgu_accepte)
 VALUES
-( 'admin',1,'["ROLE_ADMIN"]','$2y$13$gazU7nlCI8HW9HnOAVrgMuGJhPZHT8Azq4X4SZ3B4s0h/WIWe2whq', 'admin@campus-eni.fr', true, 'AUVERGNAT', 'Aurélie','0123456789', true,'1.jpg',true),
-( 'Boubou',1,'[]','$2y$13$gazU7nlCI8HW9HnOAVrgMuGJhPZHT8Azq4X4SZ3B4s0h/WIWe2whq', 'bernard.balvert@campus-eni.fr', true, 'BALVERT', 'Bernard','0123456789',true,'2.jpg',true),
-( 'la Mouette ',1,'[]','$2y$13$gazU7nlCI8HW9HnOAVrgMuGJhPZHT8Azq4X4SZ3B4s0h/WIWe2whq', 'caro.cownell@campus-eni.fr', true, 'COWNELL', 'Caroline','0123456789',true,'3.jpg',true),
-( 'JarretdePorcSelPoivre',1,'[]','$2y$13$gazU7nlCI8HW9HnOAVrgMuGJhPZHT8Azq4X4SZ3B4s0h/WIWe2whq', 'david.darwin@campus-eni.fr', true, 'DARWIN', 'David','0123456789',true,'4.jpg',true),
-( 'pizzaiolo pizzaiolo',1,'[]','$2y$13$gazU7nlCI8HW9HnOAVrgMuGJhPZHT8Azq4X4SZ3B4s0h/WIWe2whq', 'eloise.epsilon@campus-eni.fr', true, 'EPSILON', 'Eloise','0123456789',true,'5.png',true);
+( 'admin',1,'["ROLE_ADMIN"]','$2y$13$dedlIDS4Oa9T0NHhoTeIg.8quSiR3IkZQ3jx.T9hmfV2jctg1DoBq', 'admin@campus-eni.fr', true, 'AUVERGNAT', 'Aurélie','0123456789', true,'1.jpg',true),
+( 'Boubou',1,'[]','$2y$13$dedlIDS4Oa9T0NHhoTeIg.8quSiR3IkZQ3jx.T9hmfV2jctg1DoBq', 'bernard.balvert@campus-eni.fr', true, 'BALVERT', 'Bernard','0123456789',true,'2.jpg',true),
+( 'la Mouette ',1,'[]','$2y$13$dedlIDS4Oa9T0NHhoTeIg.8quSiR3IkZQ3jx.T9hmfV2jctg1DoBq', 'caro.cownell@campus-eni.fr', true, 'COWNELL', 'Caroline','0123456789',true,'3.jpg',true),
+( 'JarretdePorcSelPoivre',1,'[]','$2y$13$dedlIDS4Oa9T0NHhoTeIg.8quSiR3IkZQ3jx.T9hmfV2jctg1DoBq', 'david.darwin@campus-eni.fr', true, 'DARWIN', 'David','0123456789',true,'4.jpg',true),
+( 'pizzaiolo pizzaiolo',1,'[]','$2y$13$dedlIDS4Oa9T0NHhoTeIg.8quSiR3IkZQ3jx.T9hmfV2jctg1DoBq', 'eloise.epsilon@campus-eni.fr', true, 'EPSILON', 'Eloise','0123456789',true,'5.png',true);
 
 /* Jeux de données de sortie*/
 
