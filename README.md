@@ -6,4 +6,4 @@ C'est un travail de groupe de trois personnes, effectué en collaboration et en 
 
 Travail en cours, ne pas utiliser en production.
 
-![Screenshot](https://github.com/Luc-Anne/sortirdotcom/assets/images/screenshot.png?raw=true "Screenshot")
+![Screenshot](public/assets/images/screenshot.png?raw=true "Screenshot")
