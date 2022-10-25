@@ -1,4 +1,4 @@
-# sortirdotcom
+# SORTIRDOTCOM
 
 Site web de réseau social interne d'une organisation, en l'occurence l'ENI.
 
@@ -7,3 +7,20 @@ C'est un travail de groupe de trois personnes, effectué en collaboration et en 
 Travail en cours, ne pas utiliser en production.
 
 ![Screenshot](public/assets/images/screenshot.png?raw=true "Screenshot")
+
+# Pré-requis
+- Symfony 5.4
+- Composer
+
+# Installation
+
+- `git clone https://github.com/Luc-Anne/sortirdotcom.git`
+- `cd sortirdotcom`
+- `composer install`
+- `symfony server:ca:install`
+- configurer DATABASE_URL pour cibler une base de données inexistante
+- créer la base de données avec votre gestionnaire de BDD ou `symfony console doctrine:database:create`
+- `symfony console doctrine:schema:update --force`
+- exécuter le fichier sql '/script/SQL/dataSets.sql' sur votre base de données
+- `symfony server:start`
+- autoriser la lecture automatique de l'audio sur votre navigateur pour une meilleure utilisation du site
