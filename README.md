@@ -6,7 +6,8 @@ C'est un travail de groupe de trois personnes, effectué en collaboration et en 
 
 Travail en cours, ne pas utiliser en production.
 
-![Screenshot](public/assets/images/screenshot.png?raw=true "Screenshot")
+![Screenshots-feu](screenshots-feu.gif?raw=true "Screenshot-feu")
+![Screenshots-overview](screenshots-overview.gif?raw=true "Screenshot-overview")
 
 # Pré-requis
 - Symfony 5.4
