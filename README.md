@@ -10,13 +10,15 @@ Travail en cours, ne pas utiliser en production.
 ![Screenshots-overview](screenshots-overview.gif?raw=true "Screenshot-overview")
 
 # Pré-requis
+
 - Symfony 5.4
+- PHP 8.0
 - Composer
 
 # Installation
 
-- `git clone https://github.com/Luc-Anne/sortirdotcom.git`
-- `cd sortirdotcom`
+- `git clone git@github.com:LiliwoL/Symfony-Sortir-dot-com.git`
+- `cd Symfony-Sortir-dot-com`
 - `composer install`
 - `symfony server:ca:install`
 - configurer DATABASE_URL pour cibler une base de données inexistante
